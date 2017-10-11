@@ -10,5 +10,5 @@ trait Piece{
   def move(x:Int, y:Int)
   def getColor(): Char
   def getPosition(): Point
-  def getFigur(): String
+  def getFigure(): String
 }
