@@ -1,0 +1,31 @@
+# Intellij
+/.idea/
+
+# sbt
+.cache
+src_managed/
+project/boot/
+project/target/
+project/plugins/project/
+logs/
+project/.sbtserver
+.sbtserver/
+.cache-main
+.cache-tests
+.history
+.lib/
+lib/*.tmp
+dist/*
+target/
+lib_managed/
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+
+
+# Application
+/log.log
+
+# Play Framework
+RUNNING_PID
