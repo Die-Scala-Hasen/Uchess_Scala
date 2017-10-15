@@ -5,8 +5,8 @@ import scala.Array.ofDim
 /**
   * Created by mbo on 29.09.2017.
   */
-class GameField {
-  var gameField = ofDim[Int](8,8)
+case class GameField(x: Int, y: Int) {
+  var gameField = ofDim[Int](x,y)
 
 
   def initialGameField(): Unit = {
