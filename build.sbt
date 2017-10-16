@@ -1,4 +1,4 @@
-name := "SCALARHELLO"
+name := "Uchess_Scala"
 
 version := "1.0"
 

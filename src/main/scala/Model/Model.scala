@@ -8,8 +8,10 @@ import Model.impl.{GameField, Pawn}
 object ModelTest {
   def main(args: Array[String]): Unit = {
 
+    val x: Int = 8
+    val y: Int = 8
 
-    val view = new GameField()
+    val view = new GameField(x,y)
     view.drawGameField()
 
   }
