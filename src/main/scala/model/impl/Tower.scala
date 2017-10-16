@@ -1,6 +1,6 @@
-package Model.impl
+package model.impl
 
-import Model.Piece
+import model.Piece
 
 class Tower extends Piece {
   override def move(x: Int, y: Int): Unit = ???

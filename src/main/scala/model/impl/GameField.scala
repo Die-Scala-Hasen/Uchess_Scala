@@ -1,4 +1,4 @@
-package Model.impl
+package model.impl
 
 import scala.Array.ofDim
 

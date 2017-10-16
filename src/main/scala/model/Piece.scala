@@ -1,6 +1,6 @@
-package Model
+package model
 
-import Util.Point
+import util.Point
 
 /**
   * Created by mbo on 29.09.2017.

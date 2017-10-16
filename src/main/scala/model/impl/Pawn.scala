@@ -1,7 +1,7 @@
-package Model.impl
+package model.impl
 
-import Model.Piece
-import Util.Point
+import model.Piece
+import util.Point
 
 /**
   * Created by mbo on 29.09.2017.
