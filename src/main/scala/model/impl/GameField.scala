@@ -6,7 +6,7 @@ import scala.Array.ofDim
   * Created by mbo on 29.09.2017.
   */
 case class GameField(x: Int, y: Int) {
-  var gameField = ofDim[Int](x,y)
+  var gameField = ofDim[Int](8,8)
 
 
   def initialGameField(): Unit = {
@@ -18,7 +18,7 @@ case class GameField(x: Int, y: Int) {
   def drawGameField(): Unit = {
     for(x <- 0 until 8) {
       for(y <- 0 until 8) {
-        print("0 ")
+        print("|0|")
       }
       println()
     }
