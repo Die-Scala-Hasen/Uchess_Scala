@@ -1,4 +1,4 @@
 language: scala
 scala:
   - 2.12.1
-script: sbt clean && sbt compile && sbt coverage test
+script: sbt clean && sbt compile && sbt test
