@@ -7,5 +7,4 @@ import util.Point
   */
 trait Piece{
   def move(x:Int, y:Int)
-  override def toString
 }
