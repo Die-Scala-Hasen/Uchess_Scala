@@ -1,7 +1,7 @@
 package model.impl
 
 import model.Piece
-import util.Point
+
 
 /**
   * Created by mbo on 29.09.2017.
