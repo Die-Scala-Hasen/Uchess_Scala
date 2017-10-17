@@ -2,3 +2,7 @@ language: scala
 scala:
   - 2.12.1
 script: sbt clean && sbt compile && sbt test
+notifications:
+  email:
+    on_success: never
+    on_failure: never
