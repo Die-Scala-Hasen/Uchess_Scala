@@ -1,11 +1,9 @@
 package model
 
-import util.Point
+import model.impl.{Field, GameField}
 
-/**
-  * Created by mbo on 29.09.2017.
-  */
+
 trait Piece{
-  def move(x:Int, y:Int)
-  override def toString: String// = super.toString
+  def possibleMove(gameField:GameField): List[Field]
+  override def toString: String
 }

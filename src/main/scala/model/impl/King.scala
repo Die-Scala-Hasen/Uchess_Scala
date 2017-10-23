@@ -1,14 +1,15 @@
 package model.impl
 
 import model.Piece
+import util.Point
 
-case class King(private var x: Int, private var y: Int, color: Char) extends Piece {
-  override def move(x: Int, y: Int): Unit = ???
+case class King(p: Point, color: Char) extends Piece {
+  override def possibleMove(gameField: GameField) = ???
   override def toString: String = {
     color match {
       case 'w' => "♔"
       case 'b' => "♚"
-      case _ => "K"+color
+      case _   => "K" + color
     }
   }
 }

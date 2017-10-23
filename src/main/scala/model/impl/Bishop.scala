@@ -1,16 +1,15 @@
 package model.impl
 
 import model.Piece
-
 import util.Point
 
-case class Pawn(p: Point, color: Char) extends Piece {
+case class Bishop(p: Point, color: Char) extends Piece {
   override def possibleMove(gameField: GameField) = ???
   override def toString: String = {
     color match {
-      case 'w' => "♙"
-      case 'b' => "♟"
-      case _   => "P" + color
+      case 'w' => "♗"
+      case 'b' => "♝"
+      case _   => "B" + color
     }
   }
 }
