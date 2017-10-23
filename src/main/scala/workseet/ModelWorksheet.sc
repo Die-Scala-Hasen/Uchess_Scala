@@ -3,7 +3,12 @@ import util.Point
 
 object ModelWorksheet {
 
-  val l:List[Int] =List(1,2,3,4,5,6,7,8)
+  var l:List[Int] =List(1,2,3,4,5,6,7,8)
+
+
+  l.apply(15)
+
+
 
   for (i <- l) {
     println(i)
