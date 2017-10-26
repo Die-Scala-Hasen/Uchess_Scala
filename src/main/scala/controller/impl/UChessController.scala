@@ -1,11 +1,9 @@
 package controller.impl
 
+import View.Tui
+import akka.actor.{ActorSystem, Props}
 import controller.Controller
-
-import scala.swing.Point
-import scala.swing.event.Event
-
-case class ExitGame() extends Event
+import util.Point
 
 class UChessController extends Controller {
   override def startGame(): Unit = ???
@@ -21,4 +19,11 @@ class UChessController extends Controller {
   override def reset(): Unit = ???
 
   override def exitGame(): Unit = ???
+
+//  def akkaTest(): Unit = {
+//    val system = ActorSystem("Tui")
+//    val chessActor = system.actorOf(Props[Tui], name = "chessActor")
+//    chessActor ! "exit"
+//    chessActor ! "default test"
+//  }
 }

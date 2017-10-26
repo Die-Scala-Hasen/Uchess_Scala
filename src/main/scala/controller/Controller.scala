@@ -1,9 +1,8 @@
 package controller
 
-import scala.swing.{Point, Publisher}
+import util.Point
 
-
-trait Controller extends Publisher {
+trait Controller {
 
   def startGame()
 
