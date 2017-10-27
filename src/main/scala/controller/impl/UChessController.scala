@@ -20,10 +20,10 @@ class UChessController extends Controller {
 
   override def exitGame(): Unit = ???
 
-//  def akkaTest(): Unit = {
-//    val system = ActorSystem("Tui")
-//    val chessActor = system.actorOf(Props[Tui], name = "chessActor")
-//    chessActor ! "exit"
-//    chessActor ! "default test"
-//  }
+  def akkaTest(): Unit = {
+    val system = ActorSystem("Tui")
+    val chessActor = system.actorOf(Props[Tui], name = "chessActor")
+    chessActor ! "exit"
+    chessActor ! "default test"
+  }
 }

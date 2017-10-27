@@ -10,7 +10,7 @@ object Main {
 
     val view = GameField(8)
     val c = new UChessController()
-  //  c.akkaTest()
+    c.akkaTest()
     println(view.toString())
 
   }
