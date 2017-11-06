@@ -9,10 +9,10 @@ case class GameField(size: Int) {
   val MAX_POS = size - 1
 
   var gameField: ListBuffer[Field] = new ListBuffer[Field]
-  var whiteKing: King = King(Point(4, 0), 'w')
-  var blackKing: King = King(Point(4, 7), 'b')
-  var whiteQueen: Queen = Queen(Point(3, 0), 'w')
-  var blackQueen: Queen = Queen(Point(3, 7), 'b')
+  var whiteKing: King = King('w')
+  var blackKing: King = King('b')
+  var whiteQueen: Queen = Queen('w')
+  var blackQueen: Queen = Queen('b')
 
   initialGameField()
   initFigures()
@@ -53,7 +53,7 @@ case class GameField(size: Int) {
   private def initPawn(offset: Int, color: Char): Unit = {
     for (i <- 0 until size) {
       val currentPoint = gameField(i + offset).point
-      gameField.update(offset + i, Field(currentPoint, Some(Pawn(currentPoint, color))))
+      gameField.update(offset + i, Field(currentPoint, Some(Pawn(color))))
     }
   }
 
@@ -61,7 +61,7 @@ case class GameField(size: Int) {
     for (i <- 0 until size by 7) {
       val currentPoint = gameField(i + offset).point
       gameField.update(offset + i,
-                       Field(currentPoint, Some(Tower(currentPoint, color))))
+                       Field(currentPoint, Some(Tower(color))))
     }
   }
 
@@ -69,7 +69,7 @@ case class GameField(size: Int) {
     for (i <- 1 until size by 5) {
       val currentPoint = gameField(i + offset).point
       gameField.update(offset + i,
-                       Field(currentPoint, Some(Knight(currentPoint, color))))
+                       Field(currentPoint, Some(Knight(color))))
     }
   }
 
@@ -77,20 +77,20 @@ case class GameField(size: Int) {
     for (i <- 2 until size by 3) {
       val currentPoint = gameField(i + offset).point
       gameField.update(offset + i,
-                       Field(currentPoint, Some(Bishop(currentPoint, color))))
+                       Field(currentPoint, Some(Bishop(color))))
     }
   }
 
   private def initQueens(offset: Int, color: Char): Unit = {
     val currentPoint = gameField(3 + offset).point
     gameField.update(offset + 3,
-                     Field(currentPoint, Some(Queen(currentPoint, color))))
+                     Field(currentPoint, Some(Queen(color))))
   }
 
   private def initKings(offset: Int, color: Char): Unit = {
     val currentPoint = gameField(4 + offset).point
     gameField.update(offset + 4,
-                     Field(currentPoint, Some(King(currentPoint, color))))
+                     Field(currentPoint, Some(King(color))))
   }
 
   override def toString: String = {
