@@ -1,5 +1,5 @@
-import model.impl.{Field, GameField, King}
-import util.Point
+import de.htwg.uchess.model.impl.{Field, GameField, King}
+import de.htwg.uchess.util.Point
 
 object ModelWorksheet {
 

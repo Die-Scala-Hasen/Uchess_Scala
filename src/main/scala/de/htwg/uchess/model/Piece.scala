@@ -1,6 +1,6 @@
-package model
+package de.htwg.uchess.model
 
-import model.impl.{Field, GameField}
+import de.htwg.uchess.model.impl.{Field, GameField}
 
 
 trait Piece{

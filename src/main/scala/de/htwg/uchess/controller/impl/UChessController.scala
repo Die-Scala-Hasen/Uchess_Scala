@@ -1,9 +1,9 @@
-package controller.impl
+package de.htwg.uchess.controller.impl
 
-import View.Tui
+import de.htwg.uchess.View.Tui
 import akka.actor.{ActorSystem, Props}
-import controller.Controller
-import util.Point
+import de.htwg.uchess.controller.Controller
+import de.htwg.uchess.util.Point
 
 class UChessController extends Controller {
   override def startGame(): Unit = ???
@@ -24,6 +24,6 @@ class UChessController extends Controller {
     val system = ActorSystem("Tui")
     val chessActor = system.actorOf(Props[Tui], name = "chessActor")
     chessActor ! "exit"
-    chessActor ! "default test"
+    chessActor ! "default de.htwg.uchess.test"
   }
 }

@@ -1,8 +1,8 @@
-package model.impl
+package de.htwg.uchess.model.impl
 
-import model.Piece
+import de.htwg.uchess.model.Piece
 
-import util.Point
+import de.htwg.uchess.util.Point
 
 case class Tower( color: Char) extends Piece {
   override def possibleMove(gameField: GameField) = ???

@@ -1,6 +1,6 @@
-package model.impl
+package de.htwg.uchess.model.impl
 
-import util.Point
+import de.htwg.uchess.util.Point
 
 import scala.collection.mutable.ListBuffer
 

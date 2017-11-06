@@ -1,3 +1,5 @@
+package de.htwg.uchess
+
 /**
   * Created by mbo on 25.09.2017.
   */
@@ -13,4 +15,3 @@ object Run {
     }
   }
 }
-

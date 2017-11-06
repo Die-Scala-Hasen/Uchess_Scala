@@ -1,4 +1,4 @@
-package View
+package de.htwg.uchess.View
 
 import akka.actor.Actor
 import akka.actor.ActorSystem

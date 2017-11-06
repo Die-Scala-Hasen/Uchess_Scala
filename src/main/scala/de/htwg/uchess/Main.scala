@@ -1,9 +1,7 @@
+package de.htwg.uchess
 
-import controller.impl.UChessController
-import model.impl.GameField
-import akka.actor.Actor
-import akka.actor.ActorSystem
-import akka.actor.Props
+import de.htwg.uchess.controller.impl.UChessController
+import de.htwg.uchess.model.impl.GameField
 
 object Main {
   def main(args: Array[String]) {

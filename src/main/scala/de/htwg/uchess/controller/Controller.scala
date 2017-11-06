@@ -1,6 +1,6 @@
-package controller
+package de.htwg.uchess.controller
 
-import util.Point
+import de.htwg.uchess.util.Point
 
 trait Controller {
 
