@@ -4,7 +4,7 @@ import model.Piece
 
 import util.Point
 
-case class Pawn(p: Point, color: Char) extends Piece {
+case class Pawn( color: Char) extends Piece {
   override def possibleMove(gameField: GameField) = ???
   override def toString: String = {
     color match {

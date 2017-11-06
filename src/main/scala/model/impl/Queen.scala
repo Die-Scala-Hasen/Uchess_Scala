@@ -4,7 +4,7 @@ import model.Piece
 
 import util.Point
 
-case class Queen(p: Point, color: Char) extends Piece {
+case class Queen( color: Char) extends Piece {
   override def possibleMove(gameField: GameField): List[Field] = ???
   override def toString: String = {
     color match {

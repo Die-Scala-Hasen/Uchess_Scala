@@ -3,7 +3,7 @@ package model.impl
 import model.Piece
 import util.Point
 
-case class King(p: Point, color: Char) extends Piece {
+case class King( color: Char) extends Piece {
   override def possibleMove(gameField: GameField) = ???
   override def toString: String = {
     color match {
