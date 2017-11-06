@@ -9,7 +9,6 @@ import de.htwg.uchess.util.Point
 
 class UChessController(var gamefield: GameField) extends Controller {
 
-
   override def startGame(): Unit = ???
 
   override def getField(): Unit = ???
@@ -18,30 +17,32 @@ class UChessController(var gamefield: GameField) extends Controller {
 
   override def move(start: Point, target: Point): Unit = {
 
-    val validMoveList = gamefield.gameField.filter(_.point.equals(start))
+    val validMoveList = gamefield.gameField
+      .filter(_.point.equals(start))
       .map(_.optionChessPiece.get.possibleMove(gamefield.gameField))
 
-
-
     if (validMoveList.exists(_.contains(target))) {
-      movePiece(start,target)
+      movePiece(start, target)
 
     }
-
 
   }
 
   private def movePiece(start: Point, target: Point): Unit = {
     var s: Piece = null
-    for (f <- gamefield.gameField) {
-      if (f.point.equals(start)) {
-        s = f.optionChessPiece.get
-        f.optionChessPiece = None
+    for (i <- gamefield.gameField.indices) {
+      val currentField = gamefield.gameField(i)
+      if (currentField.point.equals(start)) {
+        s = currentField.optionChessPiece.get
+        gamefield.gameField
+          .update(i, currentField.copy(optionChessPiece = None))
       }
     }
-    for (f <- gamefield.gameField) {
-      if (f.point.equals(target)) {
-        f.optionChessPiece = Option(s)
+    for (i <- gamefield.gameField.indices) {
+      val currentField = gamefield.gameField(i)
+      if (currentField.point.equals(target)) {
+        gamefield.gameField
+          .update(i, currentField.copy(optionChessPiece = Option(s)))
       }
     }
   }
