@@ -3,16 +3,48 @@ package de.htwg.uchess.controller.impl
 import de.htwg.uchess.View.Tui
 import akka.actor.{ActorSystem, Props}
 import de.htwg.uchess.controller.Controller
+import de.htwg.uchess.model.Piece
+import de.htwg.uchess.model.impl.GameField
 import de.htwg.uchess.util.Point
 
-class UChessController extends Controller {
+class UChessController(var gamefield: GameField) extends Controller {
+
+
   override def startGame(): Unit = ???
 
   override def getField(): Unit = ???
 
   override def getStatusMessage(): Unit = ???
 
-  override def move(start: Point, target: Point): Unit = ???
+  override def move(start: Point, target: Point): Unit = {
+
+    val validMoveList = gamefield.gameField.filter(_.point.equals(start))
+      .map(_.optionChessPiece.get.possibleMove(gamefield.gameField))
+
+
+
+    if (validMoveList.exists(_.contains(target))) {
+      movePiece(start,target)
+
+    }
+
+
+  }
+
+  private def movePiece(start: Point, target: Point): Unit = {
+    var s: Piece = null
+    for (f <- gamefield.gameField) {
+      if (f.point.equals(start)) {
+        s = f.optionChessPiece.get
+        f.optionChessPiece = None
+      }
+    }
+    for (f <- gamefield.gameField) {
+      if (f.point.equals(target)) {
+        f.optionChessPiece = Option(s)
+      }
+    }
+  }
 
   override def checkWin(): Unit = ???
 
@@ -20,10 +52,10 @@ class UChessController extends Controller {
 
   override def exitGame(): Unit = ???
 
-  def akkaTest(): Unit = {
+  /*def akkaTest(): Unit = {
     val system = ActorSystem("Tui")
     val chessActor = system.actorOf(Props[Tui], name = "chessActor")
     chessActor ! "exit"
     chessActor ! "default de.htwg.uchess.test"
-  }
+  }*/
 }

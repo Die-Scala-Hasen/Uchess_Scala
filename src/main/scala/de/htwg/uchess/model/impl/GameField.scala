@@ -9,10 +9,6 @@ case class GameField(size: Int) {
   val MAX_POS = size - 1
 
   var gameField: ListBuffer[Field] = new ListBuffer[Field]
-  var whiteKing: King = King('w')
-  var blackKing: King = King('b')
-  var whiteQueen: Queen = Queen('w')
-  var blackQueen: Queen = Queen('b')
 
   initialGameField()
   initFigures()
