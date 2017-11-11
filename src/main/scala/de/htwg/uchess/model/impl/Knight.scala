@@ -6,7 +6,7 @@ import de.htwg.uchess.util.Point
 import scala.collection.mutable.ListBuffer
 
 case class Knight( color: Char) extends Piece {
-  override def possibleMove(figureList: ListBuffer[Field]) = ???
+  override def possibleMove(gameField: ListBuffer[Field], currentPoint: Point) = ???
   override def toString: String = {
     color match {
       case 'w' => "♘"

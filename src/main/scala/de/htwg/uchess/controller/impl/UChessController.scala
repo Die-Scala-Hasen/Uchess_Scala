@@ -19,7 +19,7 @@ class UChessController(var gamefield: GameField) extends Controller {
 
     val validMoveList = gamefield.gameField
       .filter(_.point.equals(start))
-      .map(_.optionChessPiece.get.possibleMove(gamefield.gameField))
+      .map(_.optionChessPiece.get.possibleMove(gamefield.gameField,start))
 
     if (validMoveList.exists(_.contains(target))) {
       movePiece(start, target)
@@ -34,15 +34,13 @@ class UChessController(var gamefield: GameField) extends Controller {
       val currentField = gamefield.gameField(i)
       if (currentField.point.equals(start)) {
         s = currentField.optionChessPiece.get
-        gamefield.gameField
-          .update(i, currentField.copy(optionChessPiece = None))
+        gamefield.gameField.update(i, currentField.copy(optionChessPiece = None))
       }
     }
     for (i <- gamefield.gameField.indices) {
       val currentField = gamefield.gameField(i)
       if (currentField.point.equals(target)) {
-        gamefield.gameField
-          .update(i, currentField.copy(optionChessPiece = Option(s)))
+        gamefield.gameField.update(i, currentField.copy(optionChessPiece = Option(s)))
       }
     }
   }
