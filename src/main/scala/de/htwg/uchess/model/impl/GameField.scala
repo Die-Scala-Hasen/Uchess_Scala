@@ -8,18 +8,17 @@ case class GameField(size: Int) {
   val MIN_POS = 0
   val MAX_POS = size - 1
 
-  var gameField: ListBuffer[Field] = new ListBuffer[Field]
+  val gameField: ListBuffer[Field] = new ListBuffer[Field]
 
   initialGameField()
   initFigures()
 
   private def initialGameField(): Unit = {
-    gameField = new ListBuffer[Field]
     for {
       y <- MIN_POS until size
       x <- MIN_POS until size
     } {
-      gameField = gameField :+ Field(Point(x, y))
+      gameField += Field(Point(x,y))
     }
   }
 

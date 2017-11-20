@@ -7,7 +7,7 @@ import de.htwg.uchess.model.Piece
 import de.htwg.uchess.model.impl.GameField
 import de.htwg.uchess.util.Point
 
-class UChessController(var gamefield: GameField) extends Controller {
+class UChessController(val gamefield: GameField) extends Controller {
 
   override def startGame(): Unit = ???
 

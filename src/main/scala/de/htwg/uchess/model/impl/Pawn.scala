@@ -7,7 +7,7 @@ import scala.collection.mutable.ListBuffer
 
 case class Pawn(color: Char, var firstMove: Boolean = true) extends Piece {
   override def possibleMove(gameField: ListBuffer[Field], currentPoint: Point): List[Point] = {
-    var list = new ListBuffer[Point]
+    val list = new ListBuffer[Point]
 
     color match {
       case 'w' =>
