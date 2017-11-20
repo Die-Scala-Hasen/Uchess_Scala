@@ -1,6 +1,6 @@
 package de.htwg.uchess
 
-import de.htwg.uchess.View.Tui
+import de.htwg.uchess.view.Tui
 import de.htwg.uchess.controller.impl.UChessController
 import de.htwg.uchess.model.impl.GameField
 import de.htwg.uchess.util.Point

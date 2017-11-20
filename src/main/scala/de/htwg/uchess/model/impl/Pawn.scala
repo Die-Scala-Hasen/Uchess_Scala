@@ -6,54 +6,33 @@ import de.htwg.uchess.util.Point
 import scala.collection.mutable.ListBuffer
 
 case class Pawn(color: Char, var firstMove: Boolean = true) extends Piece {
+
   override def possibleMove(gameField: ListBuffer[Field], currentPoint: Point): List[Point] = {
     val list = new ListBuffer[Point]
 
-    color match {
-      case 'w' =>
-        val oneStepPoint: Point = Point(currentPoint.x, currentPoint.y - 1)
-        if (isValidPoint(oneStepPoint)&& findField(gameField, oneStepPoint).optionChessPiece.isEmpty) {
-          list += oneStepPoint
-        }
-
-        val twoStepPoint: Point = Point(currentPoint.x, currentPoint.y - 2)
-        if (isValidPoint(twoStepPoint)&& firstMove && findField(gameField, twoStepPoint).optionChessPiece.isEmpty) {
-          list += twoStepPoint
-        }
-
-        val crossRightPoint: Point = Point(currentPoint.x + 1, currentPoint.y - 1)
-        if (isValidPoint(crossRightPoint)&& findField(gameField, crossRightPoint).optionChessPiece.isDefined) {
-          list += crossRightPoint
-        }
-
-        val crossLeftPoint: Point = Point(currentPoint.x - 1, currentPoint.y - 1)
-        if (isValidPoint(crossLeftPoint)&& findField(gameField, crossLeftPoint).optionChessPiece.isDefined) {
-          list += crossLeftPoint
-        }
-      case 'b' =>
-        val oneStepPoint: Point = Point(currentPoint.x, currentPoint.y + 1)
-        if (isValidPoint(oneStepPoint)&& findField(gameField, oneStepPoint).optionChessPiece.isEmpty) {
-          list += oneStepPoint
-        }
-
-        val twoStepPoint: Point = Point(currentPoint.x, currentPoint.y + 2)
-        if (isValidPoint(twoStepPoint)&& firstMove && findField(gameField, twoStepPoint).optionChessPiece.isEmpty) {
-          list += twoStepPoint
-        }
-
-        val crossRightPoint: Point = Point(currentPoint.x - 1, currentPoint.y + 1)
-        if (isValidPoint(crossRightPoint)&& findField(gameField, crossRightPoint).optionChessPiece.isDefined) {
-          list += crossRightPoint
-        }
-
-        val crossLeftPoint: Point = Point(currentPoint.x + 1, currentPoint.y + 1)
-        if (isValidPoint(crossLeftPoint)&& findField(gameField, crossLeftPoint).optionChessPiece.isDefined) {
-          list += crossLeftPoint
-        }
+    val oneStepPoint: Point = Point(currentPoint.x, stepY(currentPoint.y, 1))
+    if (isValidPoint(oneStepPoint) && findField(gameField, oneStepPoint).optionChessPiece.isEmpty) {
+      list += oneStepPoint
     }
+    val twoStepPoint: Point = Point(currentPoint.x, stepY(currentPoint.y, 2))
+    if (isValidPoint(twoStepPoint) && firstMove && findField(gameField, twoStepPoint).optionChessPiece.isEmpty) {
+      list += twoStepPoint
+    }
+    val crossRightPoint: Point = Point(stepX(currentPoint.x, 1), stepY(currentPoint.y, 1))
+    if (isValidPoint(crossRightPoint) && findField(gameField, crossRightPoint).optionChessPiece.isDefined) {
+      list += crossRightPoint
+    }
+    val crossLeftPoint: Point = Point(stepX(currentPoint.x, 1), stepY(currentPoint.y, 1))
+    if (isValidPoint(crossLeftPoint) && findField(gameField, crossLeftPoint).optionChessPiece.isDefined) {
+      list += crossLeftPoint
+    }
+
     firstMove = false
     list.toList
   }
+
+  private def stepX(position: Int, number: Int): Int = {if (color.equals('w')) position + number else position - number}
+  private def stepY(position: Int, number: Int): Int = {if (color.equals('w')) position - number else position + number}
 
   override def toString: String = {
     color match {
@@ -62,6 +41,4 @@ case class Pawn(color: Char, var firstMove: Boolean = true) extends Piece {
       case _ => "P" + color
     }
   }
-
-
 }

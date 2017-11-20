@@ -1,6 +1,6 @@
 package de.htwg.uchess.controller.impl
 
-import de.htwg.uchess.View.Tui
+import de.htwg.uchess.view.Tui
 import akka.actor.{ActorSystem, Props}
 import de.htwg.uchess.controller.Controller
 import de.htwg.uchess.model.Piece
