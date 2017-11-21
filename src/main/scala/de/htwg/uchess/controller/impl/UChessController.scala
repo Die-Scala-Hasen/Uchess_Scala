@@ -23,7 +23,10 @@ class UChessController(val gamefield: GameField) extends Controller {
 
     if (validMoveList.exists(_.contains(target))) {
       movePiece(start, target)
-
+    }//todo only for testing
+    else{
+      println("invalid move")
+      System.exit(0)
     }
 
   }
