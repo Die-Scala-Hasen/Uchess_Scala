@@ -22,7 +22,7 @@ case class Pawn(color: Char, var firstMove: Boolean = true) extends Piece {
     if (isValidPoint(crossRightPoint) && findField(gameField, crossRightPoint).optionChessPiece.isDefined) {
       list += crossRightPoint
     }
-    val crossLeftPoint: Point = Point(stepX(currentPoint.x, 1), stepY(currentPoint.y, 1))
+    val crossLeftPoint: Point = Point(stepCrossLeftX(currentPoint.x, 1), stepCrossLeftY(currentPoint.y, 1))
     if (isValidPoint(crossLeftPoint) && findField(gameField, crossLeftPoint).optionChessPiece.isDefined) {
       list += crossLeftPoint
     }
@@ -33,6 +33,11 @@ case class Pawn(color: Char, var firstMove: Boolean = true) extends Piece {
 
   private def stepX(position: Int, number: Int): Int = {if (color.equals('w')) position + number else position - number}
   private def stepY(position: Int, number: Int): Int = {if (color.equals('w')) position - number else position + number}
+
+  //for specific crossLeftMove
+  private def stepCrossLeftX(position: Int, number: Int): Int = {if (color.equals('w')) position - number else position + number}
+  private def stepCrossLeftY(position: Int, number: Int): Int = {if (color.equals('w')) position - number else position + number}
+
 
   override def toString: String = {
     color match {
