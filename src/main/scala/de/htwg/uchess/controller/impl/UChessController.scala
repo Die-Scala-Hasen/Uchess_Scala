@@ -4,7 +4,7 @@ import de.htwg.uchess.view.Tui
 import akka.actor.{ActorSystem, Props}
 import de.htwg.uchess.controller.Controller
 import de.htwg.uchess.model.Piece
-import de.htwg.uchess.model.impl.GameField
+import de.htwg.uchess.model.impl.{GameField, PlayerTurn}
 import de.htwg.uchess.util.Point
 
 class UChessController(val gamefield: GameField) extends Controller {
@@ -26,7 +26,7 @@ class UChessController(val gamefield: GameField) extends Controller {
     }//todo only for testing
     else{
       println("invalid move")
-      System.exit(0)
+//      System.exit(0)
     }
 
   }

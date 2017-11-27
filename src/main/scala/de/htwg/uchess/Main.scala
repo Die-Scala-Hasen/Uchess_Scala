@@ -11,6 +11,13 @@ object Main {
     val gamefield = GameField(8)
     val c = new UChessController(gamefield)
     val tui =  new Tui(c)
+
+
+    tui.printGameField
+    while(tui.processInputLine(scala.io.StdIn.readLine())) {
+        tui.printGameField
+    }
+
     //c.akkaTest()
     //println(gamefield.toString())
 
