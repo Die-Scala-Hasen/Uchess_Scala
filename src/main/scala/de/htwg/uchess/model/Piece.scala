@@ -1,10 +1,9 @@
 package de.htwg.uchess.model
 
-import de.htwg.uchess.model.impl.{Field, GameField}
+import de.htwg.uchess.model.impl.Field
 import de.htwg.uchess.util.Point
 
 import scala.collection.mutable.ListBuffer
-
 
 trait Piece{
   val color: Char
@@ -14,29 +13,19 @@ trait Piece{
 
   def internalMove(gameField: ListBuffer[Field], currentPoint: Point, indicatorX:Int, indicatorY:Int):ListBuffer[Point] = {
     val list = new ListBuffer[Point]
+    val PointCounterX: Int = currentPoint.x + indicatorX
+    val PointCounterY: Int = currentPoint.y + indicatorY
 
-    var nextRightStep: Boolean = true
-    var PointCounterX: Int = currentPoint.x
-    var PointCounterY: Int = currentPoint.y
-
-    while (nextRightStep) {
-      PointCounterX = PointCounterX + indicatorX
-      PointCounterY = PointCounterY + indicatorY
-      val internalPoint: Point = Point(PointCounterX, PointCounterY)
-      if (isValidPoint(internalPoint)) {
-        if (findField(gameField, internalPoint).optionChessPiece.isDefined) {
-          val foundPiece: Piece = findField(gameField, internalPoint).optionChessPiece.get
-          if (!foundPiece.color.equals(color)) {
-            list += internalPoint
-            nextRightStep = false
-          }else{
-            nextRightStep = false
-          }
-        }else{
+    val internalPoint: Point = Point(PointCounterX, PointCounterY)
+    if (isValidPoint(internalPoint)) {
+      if (findField(gameField, internalPoint).optionChessPiece.isDefined) {
+        val foundPiece: Piece = findField(gameField, internalPoint).optionChessPiece.get
+        if (!foundPiece.color.equals(color)) {
           list += internalPoint
         }
-      } else {
-        nextRightStep = false
+      }else{
+        list += internalPoint
+        list ++= internalMove(gameField,internalPoint,indicatorX,indicatorY)
       }
     }
     list

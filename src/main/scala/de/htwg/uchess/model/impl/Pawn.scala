@@ -38,7 +38,6 @@ case class Pawn(color: Char, var firstMove: Boolean = true) extends Piece {
   private def stepCrossLeftX(position: Int, number: Int): Int = {if (color.equals('w')) position - number else position + number}
   private def stepCrossLeftY(position: Int, number: Int): Int = {if (color.equals('w')) position - number else position + number}
 
-
   override def toString: String = {
     color match {
       case 'w' => "♙"

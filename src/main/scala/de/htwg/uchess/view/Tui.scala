@@ -18,6 +18,8 @@ class Tui(c: UChessController){ // extends Actor{
       val src = GameFieldPoint(list(0).substring(0,1),list(0).substring(1,2).toInt)
       val dst = GameFieldPoint(list(0).substring(3,4),list(0).substring(4,5).toInt)
       c.move(src,dst)
+    }else{
+      print("Invalid Input!")
     }
 
    return  true

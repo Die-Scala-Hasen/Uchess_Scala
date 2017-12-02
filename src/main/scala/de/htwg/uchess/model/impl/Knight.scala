@@ -23,7 +23,6 @@ case class Knight(color: Char) extends Piece {
   }
 
   override def internalMove(gameField: ListBuffer[Field], currentPoint: Point, indicatorX: Int, indicatorY: Int): ListBuffer[Point] = {
-
     val list = new ListBuffer[Point]
     val PointCounterX: Int = currentPoint.x + indicatorX
     val PointCounterY: Int = currentPoint.y + indicatorY
