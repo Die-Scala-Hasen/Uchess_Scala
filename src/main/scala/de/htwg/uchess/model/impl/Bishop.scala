@@ -6,7 +6,7 @@ import de.htwg.uchess.util.Point
 import scala.collection.mutable.ListBuffer
 
 case class Bishop(color: Char) extends Piece {
-  override def possibleMove(gameField: ListBuffer[Field], currentPoint: Point): List[Point] = {
+  override def possibleMove(gameField: Map[Point, Piece], currentPoint: Point): List[Point] = {
     val list = new ListBuffer[Point]
 
     list.appendAll(internalMove(gameField,currentPoint,1,   1))

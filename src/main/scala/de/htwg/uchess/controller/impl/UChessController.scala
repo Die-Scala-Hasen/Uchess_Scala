@@ -1,15 +1,14 @@
 package de.htwg.uchess.controller.impl
 
-import de.htwg.uchess.view.Tui
-import akka.actor.{ActorSystem, Props}
 import de.htwg.uchess.controller.Controller
 import de.htwg.uchess.model.Piece
-import de.htwg.uchess.model.impl.{Field, GameField}
+import de.htwg.uchess.model.impl.GameField
 import de.htwg.uchess.util.Point
 
-import scala.collection.mutable.ListBuffer
+class UChessController(size: Int) extends Controller {
+  private var gamefield = GameField(size)
 
-class UChessController(val gamefield: GameField) extends Controller {
+  def printField(): String = gamefield.toString
 
   override def startGame(): Unit = ???
 
@@ -18,40 +17,24 @@ class UChessController(val gamefield: GameField) extends Controller {
   override def getStatusMessage(): Unit = ???
 
   override def move(start: Point, target: Point): Unit = {
-
-    if(findField(start).optionChessPiece.isDefined){
-      val validMoveList = gamefield.gameFieldToPlay.filter(_.point.equals(start))
-        .map(_.optionChessPiece.get.possibleMove(gamefield.gameFieldToPlay,start))
-
-      if (validMoveList.exists(_.contains(target))) {
-        movePiece(start, target)
-      }
-      else{
-        //todo: prints only for testing
-        println("invalid move")
-      }
-    }else{
-      print("Please select an ChessPiece to move")
+    val gamefield = this.gamefield.gameField
+    gamefield.get(start) match {
+      case None => print("Please select an ChessPiece to move")
+      case Some(p) =>
+        val validMoveList = p.possibleMove(gamefield, start)
+        if (validMoveList.contains(target)) {
+          movePiece(p, start, target)
+        } else {
+          //todo: prints only for testing
+          println("invalid move")
+        }
     }
-
-
   }
 
-  private def movePiece(start: Point, target: Point): Unit = {
-    var s: Piece = null
-    for (i <- gamefield.gameFieldToPlay.indices) {
-      val currentField = gamefield.gameFieldToPlay(i)
-      if (currentField.point.equals(start)) {
-        s = currentField.optionChessPiece.get
-        gamefield.gameFieldToPlay.update(i, currentField.copy(optionChessPiece = None))
-      }
-    }
-    for (i <- gamefield.gameFieldToPlay.indices) {
-      val currentField = gamefield.gameFieldToPlay(i)
-      if (currentField.point.equals(target)) {
-        gamefield.gameFieldToPlay.update(i, currentField.copy(optionChessPiece = Option(s)))
-      }
-    }
+  private def movePiece(piece: Piece, start: Point, target: Point): Unit = {
+    val before = gamefield.gameField.toList
+    gamefield = gamefield.copy(gameField = gamefield.gameField - start + (target -> piece))
+    println(gamefield.gameField.toList diff before)
   }
 
   override def checkWin(): Unit = ???
@@ -60,11 +43,6 @@ class UChessController(val gamefield: GameField) extends Controller {
 
   override def exitGame(): Unit = ???
 
-
-  def findField(pointToFind: Point): Field = {
-    val result: ListBuffer[Field] = gamefield.gameFieldToPlay.filter(_.point.equals(pointToFind))
-    result.head
-  }
 
   /*def akkaTest(): Unit = {
     val system = ActorSystem("Tui")

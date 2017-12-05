@@ -7,7 +7,7 @@ import scala.collection.mutable.ListBuffer
 
 case class Pawn(color: Char, var firstMove: Boolean = true) extends Piece {
 
-  override def possibleMove(gameField: ListBuffer[Field], currentPoint: Point): List[Point] = {
+  override def possibleMove(gameField: Map[Point, Piece], currentPoint: Point): List[Point] = {
     val list = new ListBuffer[Point]
 
     val oneStepPoint: Point = Point(currentPoint.x, stepY(currentPoint.y, 1))

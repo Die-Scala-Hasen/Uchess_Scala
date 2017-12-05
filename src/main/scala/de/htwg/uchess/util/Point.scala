@@ -2,7 +2,7 @@ package de.htwg.uchess.util
 
 case class Point(x: Int, y: Int) {
   override def toString(): String = {
-    "Point($x, $y)"
+    s"Point($x, $y)"
   }
 
   override def equals(obj: scala.Any): Boolean = {

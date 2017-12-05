@@ -3,47 +3,85 @@ package de.htwg.uchess.model
 import de.htwg.uchess.model.impl.Field
 import de.htwg.uchess.util.Point
 
+import scala.annotation.tailrec
 import scala.collection.mutable.ListBuffer
 
-trait Piece{
+trait Piece {
   val color: Char
 
-  def possibleMove(gameField: ListBuffer[Field], currentPoint: Point): List[Point]
+  def possibleMove(gameField: Map[Point, Piece], currentPoint: Point): List[Point]
+
   override def toString: String
 
-  protected def internalMove(gameField: ListBuffer[Field], currentPoint: Point, indicatorX:Int, indicatorY:Int):ListBuffer[Point] = {
-    val PointCounterX: Int = currentPoint.x + indicatorX
-    val PointCounterY: Int = currentPoint.y + indicatorY
-    val internalPoint: Point = Point(PointCounterX, PointCounterY)
-    internalMove(gameField, internalPoint)
-  }
+  protected def internalMove(gameField: Map[Point, Piece], currentPoint: Point, indicatorX: Int, indicatorY: Int): ListBuffer[Point] = {
+    def addOffset(p: Point): Point = Point(p.x + indicatorX, p.y + indicatorY)
 
-
-  protected def internalMove(gameField: ListBuffer[Field], internalPoint: Point): ListBuffer[Point] = {
     val list = new ListBuffer[Point]
 
-    if (isValidPoint(internalPoint)) {
-      if (findField(gameField, internalPoint).optionChessPiece.isDefined) {
-        val foundPiece: Piece = findField(gameField, internalPoint).optionChessPiece.get
-        if (!foundPiece.color.equals(color)) {
-          list += internalPoint
+    @tailrec
+    def rec(currentPoint: Point): Unit = {
+      val point = addOffset(currentPoint)
+      if (isValidPoint(point)) {
+        gameField.get(point) match {
+          case Some(piece) if piece.color == color =>
+
+          case Some(_) =>
+            list += point
+
+          case None =>
+            list += point
+            rec(point)
         }
-      }else{
-        list += internalPoint
-        list ++= internalMove(gameField, internalPoint)
       }
     }
+
+    rec(currentPoint)
     list
   }
 
-  def findField(gameField: ListBuffer[Field], pointToFind: Point): Field = {
-    val result: ListBuffer[Field] = gameField.filter(_.point.equals(pointToFind))
-    result.head
+  protected def internalMove2(gameField: Map[Point, Piece], startPoint: Point, possibilities: List[(Int, Int)]): List[Point] = {
+    def addValidOffset(p: Point, offset: (Int, Int)): Option[Point] = {
+      val ret = Point(p.x + offset._1, p.y + offset._2)
+      Some(ret).filter(isValidPoint)
+    }
+
+    val list = new ListBuffer[Point]
+
+    @tailrec
+    def rec(currentPoint: Point, possibilities: List[(Int, Int)]): List[Point] = possibilities match {
+      case Nil => list.result()
+      case offset :: tail =>
+        addValidOffset(currentPoint, offset) match{
+          case Some(point) =>
+            gameField.get(point) match {
+              case Some(piece) if piece.color != color =>
+                list += point
+                rec(startPoint, tail)
+
+              case Some(_) => // else color == color
+                rec(startPoint, tail)
+
+              case None =>
+                list += point
+                rec(point, possibilities)
+            }
+
+          case None =>
+            rec(startPoint, tail)
+        }
+    }
+
+    rec(startPoint, possibilities)
   }
 
-  def isValidPoint(pointToCheck: Point):Boolean ={
-    var isValid:Boolean = false
-    if(pointToCheck.x >= 0 && pointToCheck.x <= 7 && pointToCheck.y >= 0 && pointToCheck.y <= 7){
+  def findField(gameField: Map[Point, Piece], pointToFind: Point): Field = {
+    val opt = gameField.get(pointToFind)
+    Field(pointToFind, opt)
+  }
+
+  def isValidPoint(pointToCheck: Point): Boolean = {
+    var isValid: Boolean = false
+    if (pointToCheck.x >= 0 && pointToCheck.x <= 7 && pointToCheck.y >= 0 && pointToCheck.y <= 7) {
       isValid = true
     }
     isValid

@@ -3,11 +3,10 @@ package de.htwg.uchess.model.impl
 import de.htwg.uchess.model.Piece
 import de.htwg.uchess.util.Point
 
-import scala.collection.mutable.ListBuffer
 
 case class Queen(color: Char) extends Piece {
-  override def possibleMove(gameField: ListBuffer[Field], currentPoint: Point) = {
-    val list = new ListBuffer[Point]
+  override def possibleMove(gameField: Map[Point, Piece], currentPoint: Point): List[Point] = {
+//    val list = new ListBuffer[Point]
 //
 //    for {
 //      x <- -1 to 1
@@ -17,16 +16,22 @@ case class Queen(color: Char) extends Piece {
 //      list ++= internalMove(gameField, currentPoint, x, y)
 //    }
 
-    for {
-      x <- currentPoint.x -1 to currentPoint.x +1
-      y <- currentPoint.y -1 to currentPoint.y +1
-      p = Point(x,y)
-      if currentPoint != p
-    } {
-      list ++= internalMove(gameField, p)
-    }
+    val possibilities = for {
+      x <-  -1 to  +1
+      y <-  -1 to  +1
+      if (x , y) != (0 , 0)
+    } yield (x, y)
 
-    list.result()
+    internalMove2(gameField, currentPoint, possibilities.toList)
+//    for {
+//      x <-  -1 to  +1
+//      y <-  -1 to  +1
+//      if (x , y) != (0 , 0)
+//    } {
+//      list ++= internalMove(gameField, currentPoint, x, y)
+//    }
+//
+//    list.result()
   }
   override def toString: String = {
     color match {

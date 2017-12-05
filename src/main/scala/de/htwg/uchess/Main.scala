@@ -8,8 +8,7 @@ import de.htwg.uchess.util.Point
 object Main {
   def main(args: Array[String]) {
 
-    val gamefield = GameField(8)
-    val c = new UChessController(gamefield)
+    val c = new UChessController(8)
     val tui =  new Tui(c)
 
 

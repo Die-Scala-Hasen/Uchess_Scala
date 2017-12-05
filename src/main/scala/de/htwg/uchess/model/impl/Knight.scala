@@ -6,7 +6,7 @@ import de.htwg.uchess.util.Point
 import scala.collection.mutable.ListBuffer
 
 case class Knight(color: Char) extends Piece {
-  override def possibleMove(gameField: ListBuffer[Field], currentPoint: Point) = {
+  override def possibleMove(gameField: Map[Point, Piece], currentPoint: Point): List[Point] = {
     val list = new ListBuffer[Point]
 
     list.appendAll(internalMove(gameField, currentPoint,  1,    2))
@@ -22,7 +22,7 @@ case class Knight(color: Char) extends Piece {
     list.toList
   }
 
-  override def internalMove(gameField: ListBuffer[Field], currentPoint: Point, indicatorX: Int, indicatorY: Int): ListBuffer[Point] = {
+  protected override def internalMove(gameField: Map[Point, Piece], currentPoint: Point, indicatorX: Int, indicatorY: Int): ListBuffer[Point] = {
     val list = new ListBuffer[Point]
     val PointCounterX: Int = currentPoint.x + indicatorX
     val PointCounterY: Int = currentPoint.y + indicatorY

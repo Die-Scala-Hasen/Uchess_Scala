@@ -17,7 +17,7 @@ class Tui(c: UChessController){ // extends Actor{
     if(list.nonEmpty) {
       val src = GameFieldPoint(list(0).substring(0,1),list(0).substring(1,2).toInt)
       val dst = GameFieldPoint(list(0).substring(3,4),list(0).substring(4,5).toInt)
-      c.move(src,dst)
+      c.move(src, dst)
     }else{
       print("Invalid Input!")
     }
@@ -60,7 +60,7 @@ class Tui(c: UChessController){ // extends Actor{
   printGameField*/
 
   def printGameField: Unit = {
-    println(c.gamefield.toString)
+    println(c.printField())
   }
 
   /*override def receive = {
