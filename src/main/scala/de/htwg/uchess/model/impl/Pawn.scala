@@ -11,19 +11,19 @@ case class Pawn(color: Char, var firstMove: Boolean = true) extends Piece {
     val list = new ListBuffer[Point]
 
     val oneStepPoint: Point = Point(currentPoint.x, stepY(currentPoint.y, 1))
-    if (isValidPoint(oneStepPoint) && findField(gameField, oneStepPoint).optionChessPiece.isEmpty) {
+    if (isValidPoint(oneStepPoint) && gameField.get(oneStepPoint).isEmpty) {
       list += oneStepPoint
     }
     val twoStepPoint: Point = Point(currentPoint.x, stepY(currentPoint.y, 2))
-    if (isValidPoint(twoStepPoint) && firstMove && findField(gameField, twoStepPoint).optionChessPiece.isEmpty) {
+    if (isValidPoint(twoStepPoint) && firstMove && gameField.get(twoStepPoint).isEmpty) {
       list += twoStepPoint
     }
     val crossRightPoint: Point = Point(stepX(currentPoint.x, 1), stepY(currentPoint.y, 1))
-    if (isValidPoint(crossRightPoint) && findField(gameField, crossRightPoint).optionChessPiece.isDefined) {
+    if (isValidPoint(crossRightPoint) && gameField.get(crossRightPoint).isDefined) {
       list += crossRightPoint
     }
     val crossLeftPoint: Point = Point(stepCrossLeftX(currentPoint.x, 1), stepCrossLeftY(currentPoint.y, 1))
-    if (isValidPoint(crossLeftPoint) && findField(gameField, crossLeftPoint).optionChessPiece.isDefined) {
+    if (isValidPoint(crossLeftPoint) && gameField.get(crossLeftPoint).isDefined) {
       list += crossLeftPoint
     }
 

@@ -31,8 +31,8 @@ case class King(color: Char) extends Piece {
 
       val internalPoint: Point = Point(PointCounterX, PointCounterY)
       if (isValidPoint(internalPoint)) {
-        if (findField(gameField, internalPoint).optionChessPiece.isDefined) {
-          val foundPiece: Piece = findField(gameField, internalPoint).optionChessPiece.get
+        if (gameField.get(internalPoint).isDefined) {
+          val foundPiece: Piece = gameField(internalPoint)
           if (!foundPiece.color.equals(color)) {
             list += internalPoint
           }

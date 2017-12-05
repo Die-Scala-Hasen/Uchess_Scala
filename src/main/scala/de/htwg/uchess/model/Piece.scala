@@ -1,6 +1,5 @@
 package de.htwg.uchess.model
 
-import de.htwg.uchess.model.impl.Field
 import de.htwg.uchess.util.Point
 
 import scala.annotation.tailrec
@@ -74,10 +73,6 @@ trait Piece {
     rec(startPoint, possibilities)
   }
 
-  def findField(gameField: Map[Point, Piece], pointToFind: Point): Field = {
-    val opt = gameField.get(pointToFind)
-    Field(pointToFind, opt)
-  }
 
   def isValidPoint(pointToCheck: Point): Boolean = {
     var isValid: Boolean = false
