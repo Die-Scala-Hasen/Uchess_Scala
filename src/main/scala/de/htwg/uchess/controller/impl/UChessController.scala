@@ -32,9 +32,7 @@ class UChessController(size: Int) extends Controller {
   }
 
   private def movePiece(piece: Piece, start: Point, target: Point): Unit = {
-    val before = gamefield.gameField.toList
     gamefield = gamefield.copy(gameField = gamefield.gameField - start + (target -> piece))
-    println(gamefield.gameField.toList diff before)
   }
 
   override def checkWin(): Unit = ???
