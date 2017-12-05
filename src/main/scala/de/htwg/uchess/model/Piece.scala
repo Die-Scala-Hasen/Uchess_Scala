@@ -11,12 +11,17 @@ trait Piece{
   def possibleMove(gameField: ListBuffer[Field], currentPoint: Point): List[Point]
   override def toString: String
 
-  def internalMove(gameField: ListBuffer[Field], currentPoint: Point, indicatorX:Int, indicatorY:Int):ListBuffer[Point] = {
-    val list = new ListBuffer[Point]
+  protected def internalMove(gameField: ListBuffer[Field], currentPoint: Point, indicatorX:Int, indicatorY:Int):ListBuffer[Point] = {
     val PointCounterX: Int = currentPoint.x + indicatorX
     val PointCounterY: Int = currentPoint.y + indicatorY
-
     val internalPoint: Point = Point(PointCounterX, PointCounterY)
+    internalMove(gameField, internalPoint)
+  }
+
+
+  protected def internalMove(gameField: ListBuffer[Field], internalPoint: Point): ListBuffer[Point] = {
+    val list = new ListBuffer[Point]
+
     if (isValidPoint(internalPoint)) {
       if (findField(gameField, internalPoint).optionChessPiece.isDefined) {
         val foundPiece: Piece = findField(gameField, internalPoint).optionChessPiece.get
@@ -25,7 +30,7 @@ trait Piece{
         }
       }else{
         list += internalPoint
-        list ++= internalMove(gameField,internalPoint,indicatorX,indicatorY)
+        list ++= internalMove(gameField, internalPoint)
       }
     }
     list

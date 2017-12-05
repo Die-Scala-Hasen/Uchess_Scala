@@ -8,18 +8,25 @@ import scala.collection.mutable.ListBuffer
 case class Queen(color: Char) extends Piece {
   override def possibleMove(gameField: ListBuffer[Field], currentPoint: Point) = {
     val list = new ListBuffer[Point]
+//
+//    for {
+//      x <- -1 to 1
+//      y <- -1 to 1
+//      if x != 0 && y != 0
+//    }{
+//      list ++= internalMove(gameField, currentPoint, x, y)
+//    }
 
-    list.appendAll(internalMove(gameField, currentPoint, 0,   1))
-    list.appendAll(internalMove(gameField, currentPoint, 0,  -1))
-    list.appendAll(internalMove(gameField, currentPoint, 1,   0))
-    list.appendAll(internalMove(gameField, currentPoint, -1,  0))
+    for {
+      x <- currentPoint.x -1 to currentPoint.x +1
+      y <- currentPoint.y -1 to currentPoint.y +1
+      p = Point(x,y)
+      if currentPoint != p
+    } {
+      list ++= internalMove(gameField, p)
+    }
 
-    list.appendAll(internalMove(gameField,currentPoint,1,   1))
-    list.appendAll(internalMove(gameField,currentPoint,1,  -1))
-    list.appendAll(internalMove(gameField,currentPoint,-1,  1))
-    list.appendAll(internalMove(gameField,currentPoint,-1, -1))
-
-    list.toList
+    list.result()
   }
   override def toString: String = {
     color match {
