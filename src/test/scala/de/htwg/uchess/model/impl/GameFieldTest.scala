@@ -7,18 +7,18 @@ import org.scalatest.Matchers
 class GameFieldTest extends WordSpec with Matchers {
   "A Gamefield should be scalable and contains specific figures " when {
     "it is very small" in {
-      val gameFieldToTest = GameField(1, initFigures = true)
+      val gameFieldToTest = GameField(1)
       gameFieldToTest.size shouldBe 1
       gameFieldToTest.gameField.get(Point(0, 0)) shouldBe Some(King('b'))
     }
     "it is small" in {
-      val gameFieldToTest = GameField(3, initFigures = true)
+      val gameFieldToTest = GameField(3)
       gameFieldToTest.size shouldBe 3
       gameFieldToTest.gameField.get(Point(1, 0)) shouldBe Some(King('b'))
       gameFieldToTest.gameField.get(Point(1, 2)) shouldBe Some(King('w'))
     }
     "it is normal" in {
-      val gameFieldToTest = GameField(8, initFigures = true)
+      val gameFieldToTest = GameField(8)
       gameFieldToTest.size shouldBe 8
 
       gameFieldToTest.gameField.get(Point(0, 0)) shouldBe Some(Tower('b'))
@@ -63,13 +63,13 @@ class GameFieldTest extends WordSpec with Matchers {
 
     }
     "it is big" in {
-      val gameFieldToTest = GameField(16, initFigures = true)
+      val gameFieldToTest = GameField(16)
       gameFieldToTest.size shouldBe 16
       gameFieldToTest.gameField.get(Point(8, 0)) shouldBe Some(King('b'))
       gameFieldToTest.gameField.get(Point(8, 15)) shouldBe Some(King('w'))
     }
     "it is very big" in {
-      val gameFieldToTest = GameField(50, initFigures = true)
+      val gameFieldToTest = GameField(50)
       gameFieldToTest.size shouldBe 50
       gameFieldToTest.gameField.get(Point(25, 0)) shouldBe Some(King('b'))
       gameFieldToTest.gameField.get(Point(25, 49)) shouldBe Some(King('w'))
@@ -79,7 +79,7 @@ class GameFieldTest extends WordSpec with Matchers {
     "have a specific toString Method" in {
       val printOfGameField = "\n  | a | b | c | d | e | f | g | h |\n==+---------------------+\n1 |♜|♞|♝|♛|♚|♝|♞|♜|\n2 |♟|♟|♟|♟|♟|♟|♟|♟|\n3 | | | | | | | | |\n4 | | | | | | | | |\n5 | | | | | | | | |\n6 | | | | | | | | |\n7 |♙|♙|♙|♙|♙|♙|♙|♙|\n8 |♖|♘|♗|♕|♔|♗|♘|♖|\n==+---------------------+"
 
-      val gameFieldToTest = GameField(8, initFigures = true)
+      val gameFieldToTest = GameField(8)
       gameFieldToTest.toString shouldBe printOfGameField
     }
   }

@@ -3,10 +3,11 @@ package de.htwg.uchess.controller.impl
 import de.htwg.uchess.controller.Controller
 import de.htwg.uchess.model.Piece
 import de.htwg.uchess.model.impl.GameField
+import de.htwg.uchess.model.impl.Pawn
 import de.htwg.uchess.util.Point
 
 class UChessController(size: Int) extends Controller {
-  private var gamefield = GameField(size,initFigures = true)
+  private var gamefield = GameField(size)
 
   def printField(): String = gamefield.toString
 
@@ -32,7 +33,13 @@ class UChessController(size: Int) extends Controller {
   }
 
   private def movePiece(piece: Piece, start: Point, target: Point): Unit = {
-    gamefield = gamefield.copy(gameField = gamefield.gameField - start + (target -> piece))
+    piece match {
+      case pawn: Pawn =>
+        pawn.firstMove = false
+        gamefield = gamefield.copy(gameField = gamefield.gameField - start + (target -> piece))
+      case _ =>
+        gamefield = gamefield.copy(gameField = gamefield.gameField - start + (target -> piece))
+    }
   }
 
   override def checkWin(): Unit = ???

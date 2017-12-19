@@ -32,13 +32,11 @@ case class GameField(size: Int, gameField: Map[Point, Piece]) {
 }
 
 object GameField {
-  def apply(size: Int, initFigures : Boolean): GameField = {
+  def apply(size: Int): GameField = {
     val gameFieldBuilder = Map.newBuilder[Point, Piece]
 
-    if(initFigures){
       initWhiteFigures()
       initBlackFigures()
-    }
 
     def initWhiteFigures(): Unit = {
       if (size == 8) {
