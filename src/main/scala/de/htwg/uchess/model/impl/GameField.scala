@@ -58,7 +58,7 @@ object GameField {
     }
 
     def initPawn(y: Int, color: Char): Unit = {
-      for (x <- 0 until size) {
+      for (x <- 0 until 8) {
         gameFieldBuilder += Point(x, y) -> Pawn(color)
       }
     }
