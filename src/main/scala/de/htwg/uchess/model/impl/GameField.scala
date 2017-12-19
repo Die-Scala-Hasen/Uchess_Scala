@@ -1,9 +1,9 @@
 package de.htwg.uchess.model.impl
 
+import scala.collection.mutable
+
 import de.htwg.uchess.model.Piece
 import de.htwg.uchess.util.Point
-
-import scala.collection.mutable
 
 case class GameField(size: Int, gameField: Map[Point, Piece]) {
 
@@ -18,7 +18,7 @@ case class GameField(size: Int, gameField: Map[Point, Piece]) {
       y <- 0 until size
       x <- 0 until size
     } {
-      if(x == 0) sb ++= "\n" + (y + 1) + " |"
+      if (x == 0) sb ++= "\n" + (y + 1) + " |"
       gameField.get(Point(x, y)) match {
         case Some(p) => sb ++= p.toString
         case None => sb ++= "\u2001"
@@ -32,29 +32,41 @@ case class GameField(size: Int, gameField: Map[Point, Piece]) {
 }
 
 object GameField {
-  def apply(size: Int): GameField = {
+  def apply(size: Int, initFigures : Boolean): GameField = {
     val gameFieldBuilder = Map.newBuilder[Point, Piece]
 
-    initWhiteFigures()
-    initBlackFigures()
+    if(initFigures){
+      initWhiteFigures()
+      initBlackFigures()
+    }
 
     def initWhiteFigures(): Unit = {
-      initTowers(7, 'w')
-      initKnights(7, 'w')
-      initBishops(7, 'w')
-      initQueens(7, 'w')
-      initKings(7, 'w')
-      initPawn(6, 'w')
+      if (size == 8) {
+        initTowers(7, 'w')
+        initKnights(7, 'w')
+        initBishops(7, 'w')
+        initQueens(7, 'w')
+        initKings(7, 'w')
+        initPawn(6, 'w')
+      }
+      else {
+        initKingsForScaling(size / 2 , size-1, 'w')
+      }
 
     }
 
     def initBlackFigures(): Unit = {
-      initTowers(0, 'b')
-      initKnights(0, 'b')
-      initBishops(0, 'b')
-      initQueens(0, 'b')
-      initKings(0, 'b')
-      initPawn(1, 'b')
+      if (size == 8) {
+        initTowers(0, 'b')
+        initKnights(0, 'b')
+        initBishops(0, 'b')
+        initQueens(0, 'b')
+        initKings(0, 'b')
+        initPawn(1, 'b')
+      }
+      else {
+        initKingsForScaling(size / 2 , 0,  'b')
+      }
     }
 
     def initPawn(y: Int, color: Char): Unit = {
@@ -86,6 +98,9 @@ object GameField {
       gameFieldBuilder += Point(4, y) -> King(color)
     }
 
+    def initKingsForScaling(x: Int, y: Int, color:Char): Unit ={
+      gameFieldBuilder += Point(x,y) -> King(color)
+    }
 
     GameField(size, gameFieldBuilder.result())
   }

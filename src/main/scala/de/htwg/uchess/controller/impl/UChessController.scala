@@ -6,7 +6,7 @@ import de.htwg.uchess.model.impl.GameField
 import de.htwg.uchess.util.Point
 
 class UChessController(size: Int) extends Controller {
-  private var gamefield = GameField(size)
+  private var gamefield = GameField(size,initFigures = true)
 
   def printField(): String = gamefield.toString
 

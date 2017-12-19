@@ -7,7 +7,7 @@ class PointTest extends WordSpec with Matchers {
 
   "A Point" should {
     val pointToTest = Point(1,6)
-    "have an specific toString Method" in{
+    "have a specific toString Method" in{
       pointToTest.toString() shouldBe "Point(1,6)"
     }
     "equals to the same Point" in{
