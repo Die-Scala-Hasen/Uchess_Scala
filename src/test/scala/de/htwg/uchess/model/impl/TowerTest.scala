@@ -8,7 +8,7 @@ import org.scalatest.Matchers
 class TowerTest extends WordSpec with Matchers {
   "A Tower" should {
     "return a valid moveSet" when {
-      "it includes all Points forward, backward, right and left of the gamefield" in {
+      "it includes all Points forward, backward, right and left of the Gamefield" in {
         val gameFieldBuilder = Map.newBuilder[Point, Piece]
         val currentPoint = Point(3, 3)
 
@@ -80,7 +80,7 @@ class TowerTest extends WordSpec with Matchers {
 
       }
 
-      "it includes all Points backward, right and left, but forward only one Points if the second includes an own figure" in {
+      "it includes all Points backward, right and left, but forward only one Point if the second includes an own figure" in {
         val gameFieldBuilder = Map.newBuilder[Point, Piece]
         val currentPoint = Point(3, 3)
         val ownPoint = Point(3, 1)
