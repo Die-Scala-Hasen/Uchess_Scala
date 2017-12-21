@@ -64,13 +64,9 @@ trait Piece {
           case Some(point) =>
             gameField.get(point) match {
               case Some(piece) if piece.color != color =>
-                if (this.isInstanceOf[Knight]) {
                   list += point
                   rec(startPoint, tail)
-                } else {
-                  list += point
-                  list.result()
-                }
+
               case Some(_) => // else color == color
                 rec(startPoint, tail)
 

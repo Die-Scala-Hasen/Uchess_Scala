@@ -60,7 +60,7 @@ class KnightTest extends WordSpec with Matchers {
        moveSet should contain(Point(3, 1))
      }
 
-     "it includes all reachable Points, if the way is target is blocked by an enemy figure" in {
+     "it includes all reachable Points, if the target is blocked by an enemy figure" in {
        val gameFieldBuilder = Map.newBuilder[Point, Piece]
        val currentPoint = Point(5, 2)
        val targetPoint = Point(4,0)
@@ -83,7 +83,7 @@ class KnightTest extends WordSpec with Matchers {
        moveSet should contain(Point(3, 1))
      }
 
-     "it includes not all reachable Points, if the way is target is blocked by an own figure" in {
+     "it includes not all reachable Points, if teh target is blocked by an own figure" in {
        val gameFieldBuilder = Map.newBuilder[Point, Piece]
        val currentPoint = Point(5, 2)
        val targetPoint = Point(4,0)
