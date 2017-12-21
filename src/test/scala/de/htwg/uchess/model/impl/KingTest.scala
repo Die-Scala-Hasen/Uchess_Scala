@@ -30,7 +30,7 @@ class KingTest extends WordSpec with Matchers {
 
       }
 
-      "it includes all reachable Points, if teh target is blocked by an enemy figure" in {
+      "it includes all reachable Points, if the target is blocked by an enemy figure" in {
         val gameFieldBuilder = Map.newBuilder[Point, Piece]
         val currentPoint = Point(3, 3)
         val targetPoint = Point(4, 2)
@@ -54,7 +54,7 @@ class KingTest extends WordSpec with Matchers {
 
       }
 
-      "it includes not all reachable Points, if teh target is blocked by an own figure" in {
+      "it includes not all reachable Points, if the target is blocked by an own figure" in {
         val gameFieldBuilder = Map.newBuilder[Point, Piece]
         val currentPoint = Point(3, 3)
         val targetPoint = Point(4, 2)
