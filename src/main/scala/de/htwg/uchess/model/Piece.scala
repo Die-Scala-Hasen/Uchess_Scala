@@ -3,7 +3,6 @@ package de.htwg.uchess.model
 import scala.annotation.tailrec
 import scala.collection.mutable.ListBuffer
 
-import de.htwg.uchess.model.impl.Knight
 import de.htwg.uchess.util.Point
 
 trait Piece {
