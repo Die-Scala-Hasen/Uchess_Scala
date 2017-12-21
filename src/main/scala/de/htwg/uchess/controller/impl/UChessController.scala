@@ -17,17 +17,17 @@ class UChessController(size: Int) extends Controller {
 
   override def getStatusMessage(): Unit = ???
 
-  override def move(start: Point, target: Point): Unit = {
+  override def move(start: Point, target: Point): Boolean = {
     val gamefield = this.gamefield.gameField
     gamefield.get(start) match {
-      case None => print("Please select an ChessPiece to move")
+      case None => false
       case Some(p) =>
         val validMoveList = p.possibleMove(gamefield, start)
         if (validMoveList.contains(target)) {
           movePiece(p, start, target)
+          true
         } else {
-          //todo: prints only for testing
-          println("invalid move")
+          false
         }
     }
   }

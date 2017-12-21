@@ -10,7 +10,7 @@ trait Controller {
 
   def getStatusMessage()
 
-  def move(start: Point, target: Point)
+  def move(start: Point, target: Point): Boolean
 
   def checkWin()
 
