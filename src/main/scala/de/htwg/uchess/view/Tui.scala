@@ -1,10 +1,18 @@
 package de.htwg.uchess.view
 
+
 import akka.actor.Actor
 import de.htwg.uchess.controller.impl.UChessController
 import de.htwg.uchess.util.GameFieldPoint
 
-class Tui(c: UChessController) { // extends Actor{
+class Tui(c: UChessController) {
+
+//  val actor = new Actor {
+//    override def receive: Receive = {
+//      case "exit" => actorTest
+//      case _ => println("Default case")
+//    }
+//  }
 
   def processInputLine(line: String): Boolean = {
 
@@ -31,8 +39,9 @@ class Tui(c: UChessController) { // extends Actor{
     println(c.printField())
   }
 
-  /*override def receive = {
-    case "exit" => println("Hallo Exit Marcel rockt Peace")
-    case _ => println("Default case")
-  }*/
+  def actorTest: Unit = {
+    println("Hallo Exit Marcel rockt Peace")
+  }
+
+
 }
