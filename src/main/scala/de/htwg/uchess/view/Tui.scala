@@ -7,13 +7,6 @@ import de.htwg.uchess.util.GameFieldPoint
 
 class Tui(c: UChessController) {
 
-//  val actor = new Actor {
-//    override def receive: Receive = {
-//      case "exit" => actorTest
-//      case _ => println("Default case")
-//    }
-//  }
-
   def processInputLine(line: String): Boolean = {
 
     val r = """(([a-hA-H])([1-8]) ([a-hA-H])([1-8]))""".r
@@ -38,10 +31,4 @@ class Tui(c: UChessController) {
   def printGameField: Unit = {
     println(c.printField())
   }
-
-  def actorTest: Unit = {
-    println("Hallo Exit Marcel rockt Peace")
-  }
-
-
 }

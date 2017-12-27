@@ -11,11 +11,11 @@ object Main {
     val c = new UChessController(8)
     val gui = new Gui(c)
 
-//    val tui = new Tui(c)
-//    tui.printGameField
-//    while (tui.processInputLine(scala.io.StdIn.readLine())) {
-//      tui.printGameField
-//    }
+  val tui = new Tui(c)
+    tui.printGameField
+   while (tui.processInputLine(scala.io.StdIn.readLine())) {
+      tui.printGameField
+    }
 
 
   }

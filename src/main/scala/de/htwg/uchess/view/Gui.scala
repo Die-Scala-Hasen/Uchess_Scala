@@ -1,25 +1,62 @@
 package de.htwg.uchess.view
 
-import java.awt.Color
+import java.awt.event.{ActionEvent, ActionListener}
+import java.awt.{Color, Dimension, GridLayout}
+import javax.swing.{ImageIcon, JFrame}
 
 import de.htwg.uchess.controller.Controller
-import javax.swing.JButton
-import javax.swing.JFrame
-import java.awt.GridLayout
+import de.htwg.uchess.util.{PieceButton, Point}
 
-class Gui(controller: Controller) {
+import scala.collection.mutable.ListBuffer
+
+class Gui(c: Controller) {
 
   val blackFieldColor = new Color(185, 122, 87)
   val whiteFieldColor = new Color(239, 227, 175)
+  var firstClick = false
+  var startPosi = Point(-1,-1)
+  var TargetPosi = Point(-1,-1)
 
   JFrame.setDefaultLookAndFeelDecorated(true)
   val frame: JFrame = new JFrame("GridLayout Test")
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
   frame.setLayout(new GridLayout(8, 8))
 
+  val buttons = new ListBuffer[PieceButton]()
+  initPieceButtons()
 
-  val buttons = List.fill(64)(new JButton())
 
+  for (x <- 0 to 63) {
+    buttons(x).setPreferredSize(new Dimension(60, 60))
+    buttons(x).addActionListener(new ActionListener {
+      override def actionPerformed(e: ActionEvent): Unit = {
+
+        if(!firstClick) {
+          //firstClick = !firstClick
+          startPosi = buttons(x).pos
+
+
+          var gameField = c.getField()
+          var posi = gameField.gameField(buttons(8).pos)
+          println("erster Click")
+        } else {
+          firstClick = !firstClick
+          TargetPosi = buttons(x).pos
+          println("zweiter Click")
+
+          val move = c.move(startPosi,TargetPosi)
+          if(move) {
+            println("move erfolgreich")
+            drawIconBoard
+          }
+        }
+
+
+
+        println("" + buttons(x).pos + buttons(x).figure)
+      }
+    })
+  }
 
   for (x <- 0 to 7) {
     if (x % 2 == 0) {
@@ -37,51 +74,77 @@ class Gui(controller: Controller) {
       buttons(x + 24).setBackground(blackFieldColor)
       buttons(x + 40).setBackground(blackFieldColor)
       buttons(x + 56).setBackground(blackFieldColor)
-
-//      buttons(x + 9).setText("" + (x+9) )
-//      buttons(x + 25).setText(""+ (x + 25))
-//      buttons(x + 41).setText(""+(x + 41))
-//      buttons(x + 57).setText(""+(x + 57))
-//
-//      buttons(x).setText("" + x )
-//      buttons(x + 16).setText(""+ (x + 16))
-//      buttons(x + 32).setText(""+(x + 32))
-//      buttons(x + 48).setText(""+(x +48))
-//
-//      buttons(x + 8).setText("" + (x+8) )
-//      buttons(x + 24).setText(""+ (x + 24))
-//      buttons(x + 40).setText(""+(x + 40))
-//      buttons(x + 56).setText(""+(x + 56))
     } else {
       buttons(x).setBackground(blackFieldColor)
       buttons(x + 16).setBackground(blackFieldColor)
       buttons(x + 32).setBackground(blackFieldColor)
       buttons(x + 48).setBackground(blackFieldColor)
-
-//      buttons(x).setText("" + x )
-//      buttons(x + 16).setText(""+ (x + 16))
-//      buttons(x + 32).setText(""+(x + 32))
-//      buttons(x + 48).setText(""+(x +48))
     }
   }
 
-
-//  try {
-//
-//    val image = new ImageIcon(this.getClass.getResource("horse.png")).getImage
-//    val img = ImageIO.read(getClass.getResource("horse.png"))
-//    buttons(0).setIcon(new ImageIcon(img))
-//  } catch {
-//    case ex: Exception =>
-//      System.out.println(ex)
-//  }
+  drawIconBoard
 
 
-  for (n <- 0 to 63) {
-    frame.add(buttons(n))
-  }
 
+  buttons(1).grabFocus()
   frame.pack()
   frame.setVisible(true)
 
+
+  private def initPieceButtons() = {
+    buttons += new PieceButton(Some("bTower"), new Point(0, 0))
+    buttons += new PieceButton(Some("bKnight"), new Point(1, 0))
+    buttons += new PieceButton(Some("bBishop"), new Point(2, 0))
+    buttons += new PieceButton(Some("bQueen"), new Point(3, 0))
+    buttons += new PieceButton(Some("bKing"), new Point(4, 0))
+    buttons += new PieceButton(Some("bBishop"), new Point(5, 0))
+    buttons += new PieceButton(Some("bKnight"), new Point(6, 0))
+    buttons += new PieceButton(Some("bTower"), new Point(7, 0))
+
+    for (i <- 0 to 7)
+      buttons += new PieceButton(Some("bPawn"), new Point(i, 1))
+    for (i <- 0 to 7)
+      buttons += new PieceButton(None, new Point(i, 2))
+    for (i <- 0 to 7)
+      buttons += new PieceButton(None, new Point(i, 3))
+    for (i <- 0 to 7)
+      buttons += new PieceButton(None, new Point(i, 4))
+    for (i <- 0 to 7)
+      buttons += new PieceButton(None, new Point(i, 5))
+
+    for (i <- 0 to 7)
+      buttons += new PieceButton(Some("wPawn"), new Point(i, 6))
+
+    buttons += new PieceButton(Some("wTower"), new Point(0, 7))
+    buttons += new PieceButton(Some("wKnight"), new Point(1, 7))
+    buttons += new PieceButton(Some("wBishop"), new Point(2, 7))
+    buttons += new PieceButton(Some("wQueen"), new Point(3, 7))
+    buttons += new PieceButton(Some("wKing"), new Point(4, 7))
+    buttons += new PieceButton(Some("wBishop"), new Point(5, 7))
+    buttons += new PieceButton(Some("wKnight"), new Point(6, 7))
+    buttons += new PieceButton(Some("wTower"), new Point(7, 7))
   }
+  private def setBtnIcon(btn: PieceButton, icon: String): Unit = {
+    try {
+      val image = new ImageIcon(this.getClass.getResource(icon)).getImage
+      btn.setIcon(new ImageIcon(image))
+    } catch {
+      case ex: Exception =>
+        System.out.println(ex)
+    }
+  }
+  private def drawIconBoard = {
+    for (n <- 0 to 63) {
+
+
+      frame.add(buttons(n))
+
+
+      buttons(n).figure match {
+        case Some(f) => setBtnIcon(buttons(n), "resources/" + f + ".png")
+        case None => print("")
+      }
+    }
+  }
+
+}

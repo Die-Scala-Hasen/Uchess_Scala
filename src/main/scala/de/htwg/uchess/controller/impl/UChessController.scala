@@ -30,7 +30,9 @@ class UChessController(size: Int) extends Controller {
 
   override def startGame(): Unit = ???
 
-  override def getField(): Unit = ???
+  override def getField(): GameField = {
+    gameField
+  }
 
   override def getStatusMessage(): Unit = ???
 
@@ -49,6 +51,7 @@ class UChessController(size: Int) extends Controller {
         }
     }
   }
+
 
   private def killKingBlack() = {
     gameField = gameField.copy(gameField = gameField.gameField - new Point(4,0))

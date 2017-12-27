@@ -1,12 +1,13 @@
 package de.htwg.uchess.controller
 
+import de.htwg.uchess.model.impl.GameField
 import de.htwg.uchess.util.Point
 
 trait Controller {
 
   def startGame()
 
-  def getField()
+  def getField(): GameField
 
   def getStatusMessage()
 
