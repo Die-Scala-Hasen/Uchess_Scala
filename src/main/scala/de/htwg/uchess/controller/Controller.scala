@@ -4,10 +4,13 @@ import de.htwg.uchess.model.impl.GameField
 import de.htwg.uchess.util.Point
 
 trait Controller {
+  def gameLock(): Boolean
 
   def startGame()
 
   def getField(): GameField
+
+  def getWinner(): String
 
   def getStatusMessage()
 

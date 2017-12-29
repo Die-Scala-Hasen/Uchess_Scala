@@ -15,7 +15,18 @@ class UChessController(size: Int) extends Controller {
   private var startPlayerWhite = true
   private var whiteKingAlive = true
   private var blackKingAlive = true
-  var ret = ()
+  var lock = false
+  var winner = ""
+
+
+  private def initAll(): Unit = {
+    gameField = GameField(size)
+    startPlayerWhite = true
+    whiteKingAlive = true
+    blackKingAlive = true
+    lock = false
+    winner = ""
+  }
 
   private def checkPlayerTurn(p: Piece): Boolean = {
     if (p.color.equals('w') && startPlayerWhite == true) {
@@ -33,6 +44,14 @@ class UChessController(size: Int) extends Controller {
 
   override def getField(): GameField = {
     gameField
+  }
+
+  override def gameLock(): Boolean = {
+    lock
+  }
+
+  override def getWinner(): String = {
+    winner
   }
 
   override def getStatusMessage(): Unit = ???
@@ -55,11 +74,11 @@ class UChessController(size: Int) extends Controller {
 
 
   private def killKingBlack() = {
-    gameField = gameField.copy(gameField = gameField.gameField - new Point(4,0))
+    gameField = gameField.copy(gameField = gameField.gameField - new Point(4, 0))
   }
 
   private def killKingWhite() = {
-    gameField = gameField.copy(gameField = gameField.gameField - new Point(4,7))
+    gameField = gameField.copy(gameField = gameField.gameField - new Point(4, 7))
   }
 
   private def turnColorChange() = {
@@ -92,28 +111,31 @@ class UChessController(size: Int) extends Controller {
       }
     }
 
-    if(!whiteKingAlive) {
+    if (!whiteKingAlive) {
       printf("Black got the chicken dinner")
-      ret = (true,"Black is Winner")
+      lock = true
+      winner = "Black"
     }
 
-    if(!blackKingAlive) {
+    if (!blackKingAlive) {
       printf("White got the chicken dinner")
-      ret =  (true,"White is Winner")
+      lock = true
+      winner = "White"
     }
-
   }
 
-  override def reset(): Unit = ???
+  override def reset(): Unit = {
+    initAll()
+  }
 
   override def exitGame(): Unit = ???
 
 
-//    def akkaTest(): Unit = {
-//      val system = ActorSystem("UpdateSystem")
-//      val chessActor = system.actorOf(Props(new Tui(this)), name = "tui")
-//      chessActor ! StartMessage
-//      chessActor ! "exit"
-//     chessActor ! "blat"
-//    }
+  //    def akkaTest(): Unit = {
+  //      val system = ActorSystem("UpdateSystem")
+  //      val chessActor = system.actorOf(Props(new Tui(this)), name = "tui")
+  //      chessActor ! StartMessage
+  //      chessActor ! "exit"
+  //     chessActor ! "blat"
+  //    }
 }
