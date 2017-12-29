@@ -15,6 +15,7 @@ class UChessController(size: Int) extends Controller {
   private var startPlayerWhite = true
   private var whiteKingAlive = true
   private var blackKingAlive = true
+  var ret = ()
 
   private def checkPlayerTurn(p: Piece): Boolean = {
     if (p.color.equals('w') && startPlayerWhite == true) {
@@ -81,6 +82,7 @@ class UChessController(size: Int) extends Controller {
     whiteKingAlive = false
     blackKingAlive = false
 
+
     gameField.gameField.foreach { keyVal =>
       if (keyVal._2.toString.equals("♔")) {
         whiteKingAlive = true
@@ -92,12 +94,13 @@ class UChessController(size: Int) extends Controller {
 
     if(!whiteKingAlive) {
       printf("Black got the chicken dinner")
+      ret = (true,"Black is Winner")
     }
 
     if(!blackKingAlive) {
       printf("White got the chicken dinner")
+      ret =  (true,"White is Winner")
     }
-
 
   }
 

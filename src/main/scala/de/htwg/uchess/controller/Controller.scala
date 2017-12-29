@@ -13,7 +13,7 @@ trait Controller {
 
   def move(start: Point, target: Point): Boolean
 
-  def checkWin()
+  def checkWin(): Unit
 
   def reset()
 

@@ -14,11 +14,11 @@ class Gui(c: Controller) {
   val blackFieldColor = new Color(185, 122, 87)
   val whiteFieldColor = new Color(239, 227, 175)
   var firstClick = false
-  var startPosi = Point(-1,-1)
-  var TargetPosi = Point(-1,-1)
+  var startPosi  = new PieceButton(None,new Point(-1,-1))
+  var TargetPosi = new PieceButton(None,new Point(-1,-1))
 
   JFrame.setDefaultLookAndFeelDecorated(true)
-  val frame: JFrame = new JFrame("GridLayout Test")
+  val frame: JFrame = new JFrame()
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
   frame.setLayout(new GridLayout(8, 8))
 
@@ -30,30 +30,26 @@ class Gui(c: Controller) {
     buttons(x).setPreferredSize(new Dimension(60, 60))
     buttons(x).addActionListener(new ActionListener {
       override def actionPerformed(e: ActionEvent): Unit = {
+        //if(c.checkWin()){
+
 
         if(!firstClick) {
-          //firstClick = !firstClick
-          startPosi = buttons(x).pos
-
-
-          var gameField = c.getField()
-          var posi = gameField.gameField(buttons(8).pos)
-          println("erster Click")
+          frame.setTitle("")
+          firstClick = !firstClick
+          startPosi = buttons(x)
         } else {
           firstClick = !firstClick
-          TargetPosi = buttons(x).pos
-          println("zweiter Click")
-
-          val move = c.move(startPosi,TargetPosi)
+          TargetPosi = buttons(x)
+          val move = c.move(startPosi.pos,TargetPosi.pos)
           if(move) {
-            println("move erfolgreich")
+            TargetPosi.figure = startPosi.figure
+            startPosi.figure = None
             drawIconBoard
+          } else {
+            frame.setTitle(frame.getTitle + " - invalid Move")
           }
         }
-
-
-
-        println("" + buttons(x).pos + buttons(x).figure)
+    //    }
       }
     })
   }
@@ -83,13 +79,8 @@ class Gui(c: Controller) {
   }
 
   drawIconBoard
-
-
-
-  buttons(1).grabFocus()
   frame.pack()
   frame.setVisible(true)
-
 
   private def initPieceButtons() = {
     buttons += new PieceButton(Some("bTower"), new Point(0, 0))
@@ -135,14 +126,10 @@ class Gui(c: Controller) {
   }
   private def drawIconBoard = {
     for (n <- 0 to 63) {
-
-
       frame.add(buttons(n))
-
-
       buttons(n).figure match {
         case Some(f) => setBtnIcon(buttons(n), "resources/" + f + ".png")
-        case None => print("")
+        case None => buttons(n).setIcon(null)
       }
     }
   }
