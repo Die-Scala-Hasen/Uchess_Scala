@@ -23,7 +23,7 @@
 //  var startPosi = new PieceButton(None, new Point(-1, -1))
 //  var TargetPosi = new PieceButton(None, new Point(-1, -1))
 //  var tempColor = new Color(0, 0, 0)
-//  var buttons = new ListBuffer[PieceButton]()
+//  val buttons = new ListBuffer[PieceButton]()
 //  var frame: JFrame = new JFrame()
 //  val menubar: JMenuBar = new JMenuBar()
 //  val menu = new JMenu("File")
@@ -67,7 +67,7 @@
 //
 //  private def initPieceButtons() = {
 //    buttons += new PieceButton(Some("bTower"), Point(0, 0))
-////    buttons += new PieceButton(Some("bKnight"), Point(1, 0))
+//    buttons += new PieceButton(Some("bKnight"), Point(1, 0))
 //    buttons += new PieceButton(Some("bBishop"), Point(2, 0))
 //    buttons += new PieceButton(Some("bQueen"), Point(3, 0))
 //    buttons += new PieceButton(Some("bKing"), Point(4, 0))

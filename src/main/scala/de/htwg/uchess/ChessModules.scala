@@ -1,6 +1,7 @@
 package de.htwg.uchess
 
 import akka.actor.{ActorRef, ActorSystem, Props}
+import de.htwg.uchess.view.gui.SwingActor
 import de.htwg.uchess.view.tui.Tui
 
 trait ChessModule {
@@ -8,7 +9,7 @@ trait ChessModule {
 
   def createTUI()(implicit system: ActorSystem): ActorRef = system.actorOf(Props[Tui], "view$tui")
 
-//  def createGUI()(implicit system: ActorSystem): ActorRef = system.actorOf(Props[Gui], "view$gui")
+  def createGUI()(implicit system: ActorSystem): ActorRef = system.actorOf(Props[SwingActor], "view$gui")
 }
 
 trait OfflineModule extends ChessModule {
@@ -17,6 +18,6 @@ trait OfflineModule extends ChessModule {
 
   override def createUI()(implicit system: ActorSystem): Unit = {
     tui = createTUI()
-//    gui = createGUI()
+    gui = createGUI()
   }
 }
