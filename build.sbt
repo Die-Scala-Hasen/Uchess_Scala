@@ -17,6 +17,8 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 
 libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.4.0"
 
+libraryDependencies += "org.scala-lang" % "scala-swing" % "2.11+"
+
 libraryDependencies := {
   libraryDependencies.value ++ Seq(
     "org.scala-lang.modules" %% "scala-xml" % "1.0.6",

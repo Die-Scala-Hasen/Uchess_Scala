@@ -1,22 +1,32 @@
 package de.htwg.uchess
 
-import akka.actor.{ActorSystem, Props}
-import de.htwg.uchess.view.{Gui, Tui}
-import de.htwg.uchess.controller.impl.{StartMessage, UChessController}
+import akka.actor.{ActorRef, ActorSystem, Props}
+import de.htwg.uchess.controller.impl.UChessController
 
+class Main {
+  this: ChessModule =>
+  implicit val system: ActorSystem = ActorSystem("ChessSystem")
+  var controller: ActorRef = _
+
+  def start(): Unit = {
+    createUI()
+    controller = system.actorOf(Props[UChessController], "controller")
+  }
+}
 
 object Main {
+
+  import scala.concurrent.ExecutionContext.Implicits.global
+
   def main(args: Array[String]) {
 
-    val c = new UChessController(8)
-    val gui = new Gui(c)
+    val chess = new Main with OfflineModule
+    chess.start()
+    chess.system.whenTerminated.onComplete(_ => System.exit(0))
 
-  val tui = new Tui(c)
-    tui.printGameField
-   while (tui.processInputLine(scala.io.StdIn.readLine())) {
-      tui.printGameField
+    while (true) {
+      val input = scala.io.StdIn.readLine()
+      chess.tui ! input
     }
-
-
   }
 }
