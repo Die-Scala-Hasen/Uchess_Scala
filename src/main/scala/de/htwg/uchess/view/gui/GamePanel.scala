@@ -116,13 +116,13 @@ class GamePanel(controller: ActorSelection) extends GridPanel(0, 8) {
   }
 
   def update(info: Info): Unit = {
-//    updateGameField(info.gameField)
+    updateGameField(info.gameField)
     info match {
       case ui: UpdateInfo =>
         // mark selected field
         if (ui.selfPos != null) {
-          for(bt <- buttons){
-            if(bt.pos.equals(ui.selfPos)){
+          for (bt <- buttons) {
+            if (bt.pos.equals(ui.selfPos)) {
               bt.background = lightBlue
             }
           }
@@ -130,8 +130,8 @@ class GamePanel(controller: ActorSelection) extends GridPanel(0, 8) {
         // mark possible moves
         if (ui.possibleMoves != null) {
           ui.possibleMoves.foreach { field =>
-            for(bt <- buttons){
-              if(field.equals(bt.pos)){
+            for (bt <- buttons) {
+              if (field.equals(bt.pos)) {
                 bt.background = lightBlue
               }
             }
@@ -141,5 +141,27 @@ class GamePanel(controller: ActorSelection) extends GridPanel(0, 8) {
     }
   }
 
-//  private def updateGameField(gamefield: GameField): Unit = ???
+  private def updateGameField(gamefield: GameField): Unit = {
+
+    //set background
+    colorizeBoard()
+
+    //delete old icons
+    for (n <- 0 to 63) {
+      buttons(n).icon = null
+    }
+
+    //set figures
+    gamefield.gameField.foreach { field =>
+      for (n <- 0 to 63) {
+        if (field._1.equals(buttons(n).pos)) {
+          if (buttons(n).figure.isDefined && s"field._2.color + field._2.getClass.getSimpleName".equals(buttons(n).figure.get)) {
+              buttons(n).icon = null
+          } else {
+            setBtnIcon(buttons(n), "resources/" + field._2.color + field._2.getClass.getSimpleName + ".png")
+          }
+        }
+      }
+    }
+  }
 }
