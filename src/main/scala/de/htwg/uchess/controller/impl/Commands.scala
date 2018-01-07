@@ -6,4 +6,4 @@ trait Command {}
 
 case object QuitCmd extends Command
 case object RestartCmd extends Command
-case class MoveCmd(src: Point, dst: Point) extends Command
+case class MoveCmd(point: Point) extends Command

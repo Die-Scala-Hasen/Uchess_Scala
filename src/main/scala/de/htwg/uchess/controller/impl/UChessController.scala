@@ -28,7 +28,7 @@ class UChessController() extends Actor with Controller {
   override def receive = {
     case QuitCmd => exitGame()
     case RestartCmd => reset()
-    case move: MoveCmd => handleMove(move.src, move.dst)
+    case move: MoveCmd => handleMovement(move.point)
     case _ if !winner.isEmpty => view ! InvalidInfo(gameField, "Invalid Command")
     case _ => view ! InvalidInfo(gameField, "Invalid Command")
   }
@@ -103,7 +103,20 @@ class UChessController() extends Actor with Controller {
     }
   }
 
-  override def handleMove(start: Point, target: Point): Unit = {
+  private def handleMovement(point: Point): Unit = {
+    if (winner.nonEmpty) {
+      return
+    }
+
+    if (!selected) {
+      select(point)
+    } else {
+      doMove(point)
+    }
+  }
+
+  override def doMove(target: Point): Unit = {
+    val start = movePiecePos
     val gameField = this.gameField.gameField
     gameField.get(start) match {
       case None =>

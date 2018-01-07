@@ -19,24 +19,19 @@ class Tui extends Actor {
     line.toLowerCase match {
       case "q" => controller ! QuitCmd
       case "r" => controller ! RestartCmd
-      case input => handleMove(input)
+      case select if line.startsWith("s") && line.length == 3 => handleMove(select)
+      case move if line.startsWith("m") && line.length == 3 => handleMove(move)
+      case _ => print("Invalid input!")
     }
   }
 
   def handleMove(line: String) = {
-    val r = """(([a-hA-H])([1-8]) ([a-hA-H])([1-8]))""".r
-    val list = r.findAllIn(line).toList
-    if (list.nonEmpty) {
       try {
-        val src = GameFieldPoint(list.head.substring(0, 1), list.head.substring(1, 2).toInt)
-        val dst = GameFieldPoint(list.head.substring(3, 4), list.head.substring(4, 5).toInt)
-        controller ! MoveCmd(src, dst)
+        val src = GameFieldPoint(line.charAt(1).toString, line.charAt(2).toString.toInt)
+        controller ! MoveCmd(src)
       } catch {
-        case _: NoSuchElementException => println("Invalid command!")
+        case _: NumberFormatException => println("Invalid command!")
       }
-    }else {
-      println("Invalid command!")
-    }
   }
 
   private def printGameover(info: GameoverInfo) = {
@@ -48,7 +43,7 @@ class Tui extends Actor {
   private def printUpdate(info: UpdateInfo) = {
     printGameField(info.gameField)
     println(info.status)
-    println("Please enter a command: q - quit, r - restart, coordinates to move")
+    println("Please enter a command: q - quit, r - restart, s+coordinates to select a figure (example: sc7), m+coordinates to move (example:mc6)")
   }
 
   def printGameField(gameField: GameField): Unit = {

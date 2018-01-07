@@ -10,11 +10,11 @@ trait Controller {
 
   def getWinner(): String
 
-  def handleMove(start: Point, target: Point): Unit
+  def doMove(target: Point): Unit
 
   def checkWin(): Unit
 
-  def reset()
+  def reset(): Unit
 
-  def exitGame()
+  def exitGame(): Unit
 }

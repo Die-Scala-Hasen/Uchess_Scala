@@ -4,7 +4,8 @@ import java.awt.{Color, Dimension}
 import javax.swing.ImageIcon
 
 import akka.actor.ActorSelection
-import de.htwg.uchess.controller.impl.MoveCmd
+import de.htwg.uchess.controller.impl.{Info, MoveCmd, UpdateInfo}
+import de.htwg.uchess.model.impl.GameField
 import de.htwg.uchess.util.{PieceButton, Point}
 
 import scala.collection.mutable.ListBuffer
@@ -16,7 +17,7 @@ class GamePanel(controller: ActorSelection) extends GridPanel(0, 8) {
   val blackFieldColor = new Color(185, 122, 87)
   val whiteFieldColor = new Color(239, 227, 175)
 
-  private val imagesPath = "public/images/"
+  private val lightBlue = Color.decode("#B8CFE5")
 
   private val buttons = new ListBuffer[PieceButton]()
 
@@ -109,9 +110,36 @@ class GamePanel(controller: ActorSelection) extends GridPanel(0, 8) {
     for (x <- 0 to 63) {
       buttons(x).preferredSize = new Dimension(60, 60)
       buttons(x).reactions += {
-        case _: ButtonClicked => controller ! MoveCmd
+        case _: ButtonClicked => controller ! MoveCmd(buttons(x).pos)
       }
     }
   }
 
+  def update(info: Info): Unit = {
+//    updateGameField(info.gameField)
+    info match {
+      case ui: UpdateInfo =>
+        // mark selected field
+        if (ui.selfPos != null) {
+          for(bt <- buttons){
+            if(bt.pos.equals(ui.selfPos)){
+              bt.background = lightBlue
+            }
+          }
+        }
+        // mark possible moves
+        if (ui.possibleMoves != null) {
+          ui.possibleMoves.foreach { field =>
+            for(bt <- buttons){
+              if(field.equals(bt.pos)){
+                bt.background = lightBlue
+              }
+            }
+          }
+        }
+      case _ =>
+    }
+  }
+
+//  private def updateGameField(gamefield: GameField): Unit = ???
 }

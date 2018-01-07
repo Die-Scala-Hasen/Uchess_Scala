@@ -40,7 +40,7 @@ class SwingFrame(controller: ActorSelection) extends Frame {
   visible = true
 
   def update(info: Info): Unit = {
-//    gamePanel.update(info)
+    gamePanel.update(info)
 
     info match {
       case gi: GameoverInfo =>
