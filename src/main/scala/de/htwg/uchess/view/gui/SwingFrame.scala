@@ -45,11 +45,10 @@ class SwingFrame(controller: ActorSelection) extends Frame {
     info match {
       case gi: GameoverInfo =>
         statusPanel.setStatus(gi.status)
-//        statusPanel.setTurn("-")
         InfoDialog.showGameOver(contents.head)
+        controller ! RestartCmd
       case ui: UpdateInfo =>
         statusPanel.setStatus(ui.status)
-//        statusPanel.setTurn(ui.turnMessage)
     }
   }
 

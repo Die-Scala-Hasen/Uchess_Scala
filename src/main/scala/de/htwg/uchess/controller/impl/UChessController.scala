@@ -19,7 +19,7 @@ class UChessController() extends Actor with Controller {
   private var blackKingAlive = true
   private var status = ""
   private var selected = false
-  private var lock = false
+  private var gameOver = false
   private var winner = ""
 
   initAll()
@@ -40,15 +40,17 @@ class UChessController() extends Actor with Controller {
     startPlayerWhite = true
     whiteKingAlive = true
     blackKingAlive = true
+    selected = false
+    gameOver = false
     status = "Welcome to UChess"
-    lock = false
     winner = ""
   }
 
   private def notifyView(): Unit = {
-    var info: Info = null
-    if (winner.nonEmpty) {
-      info = GameoverInfo(gameField, winner)
+    if (gameOver) {
+      val info = GameoverInfo(gameField, winner)
+      gameOver = false
+      view ! info
     } else {
       var selPos: (Point) = null
       var possMoves: List[Point] = null
@@ -56,9 +58,10 @@ class UChessController() extends Actor with Controller {
         selPos = movePiecePos
         possMoves = movePiece.possibleMove(gameField.gameField,selPos)
       }
-      info = UpdateInfo(gameField, possMoves, selPos, status)
+      val info = UpdateInfo(gameField, possMoves, selPos, status)
+      view ! info
     }
-    view ! info
+
   }
 
   private def checkPlayerTurn(p: Piece): Boolean = {
@@ -76,14 +79,6 @@ class UChessController() extends Actor with Controller {
 
   override def getField(): GameField = {
     gameField
-  }
-
-  override def gameLock(): Boolean = {
-    lock
-  }
-
-  override def getWinner(): String = {
-    winner
   }
 
   private def select(point: Point): Unit = {
@@ -176,18 +171,15 @@ class UChessController() extends Actor with Controller {
     }
 
     if (!whiteKingAlive) {
-      status = "Black got the chicken dinner"
-      lock = true
-      winner = "Black"
-      notifyView()
+      gameOver = true
+      winner = "Black got the chicken dinner"
     }
 
     if (!blackKingAlive) {
-      status = "White got the chicken dinner"
-      lock = true
-      winner = "White"
-      notifyView()
+      gameOver = true
+      winner = "White got the chicken dinner"
     }
+    notifyView()
   }
 
   override def reset(): Unit = {
