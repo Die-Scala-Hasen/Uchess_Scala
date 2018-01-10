@@ -74,9 +74,6 @@ class UChessController() extends Actor with Controller {
       false
   }
 
-  def printField(): String = gameField.toString
-
-
   override def getField(): GameField = {
     gameField
   }
@@ -129,15 +126,6 @@ class UChessController() extends Actor with Controller {
         selected = false
         notifyView()
     }
-  }
-
-
-  private def killKingBlack() = {
-    gameField = gameField.copy(gameField = gameField.gameField - Point(4, 0))
-  }
-
-  private def killKingWhite() = {
-    gameField = gameField.copy(gameField = gameField.gameField - Point(4, 7))
   }
 
   private def turnColorChange() = {
