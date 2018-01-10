@@ -49,7 +49,7 @@ class UChessController() extends Actor with Controller {
   private def notifyView(): Unit = {
     if (gameOver) {
       val info = GameoverInfo(gameField, winner)
-      gameOver = false
+//      gameOver = false
       view ! info
     } else {
       var selPos: (Point) = null
@@ -100,7 +100,7 @@ class UChessController() extends Actor with Controller {
 
   private def handleMovement(point: Point): Unit = {
     if (winner.nonEmpty) {
-      return
+      gameOver = true
     }
 
     if (!selected) {
@@ -179,7 +179,6 @@ class UChessController() extends Actor with Controller {
       gameOver = true
       winner = "White got the chicken dinner"
     }
-    notifyView()
   }
 
   override def reset(): Unit = {

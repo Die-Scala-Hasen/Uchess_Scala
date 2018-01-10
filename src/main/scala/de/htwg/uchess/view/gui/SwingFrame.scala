@@ -46,7 +46,6 @@ class SwingFrame(controller: ActorSelection) extends Frame {
       case gi: GameoverInfo =>
         statusPanel.setStatus(gi.status)
         InfoDialog.showGameOver(contents.head)
-        controller ! RestartCmd
       case ui: UpdateInfo =>
         statusPanel.setStatus(ui.status)
     }
