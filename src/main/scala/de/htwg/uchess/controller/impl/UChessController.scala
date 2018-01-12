@@ -12,6 +12,7 @@ case object StartMessage
 class UChessController() extends Actor with Controller {
   private var gameField = GameField(8)
   private val view: ActorSelection = context.system.actorSelection("user/view*")
+  val remote = context.actorSelection("akka.tcp://HelloRemoteSystem@127.0.0.1:5150/user/WebSocketActor")
   private var movePiece: Piece = _
   private var movePiecePos: Point = _
   private var startPlayerWhite = true
@@ -31,6 +32,8 @@ class UChessController() extends Actor with Controller {
     case move: MoveCmd => handleMovement(move.point)
     case _ if !winner.isEmpty => view ! InvalidInfo(gameField, "Invalid Command")
     case _ => view ! InvalidInfo(gameField, "Invalid Command")
+
+    case msg: String => println("deine msg ist: " + msg)
   }
 
   private def initAll(): Unit = {
@@ -59,6 +62,8 @@ class UChessController() extends Actor with Controller {
         possMoves = movePiece.possibleMove(gameField.gameField,selPos)
       }
       val info = UpdateInfo(gameField, possMoves, selPos, status)
+      remote ! "TEST"
+      //remote ! info
       view ! info
     }
 
