@@ -19,9 +19,12 @@ libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.4.0"
 
 libraryDependencies += "org.scala-lang" % "scala-swing" % "2.11+"
 
+
+
 libraryDependencies := {
   libraryDependencies.value ++ Seq(
     "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
     "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4",
-    "org.scala-lang.modules" %% "scala-swing" % "2.0.0-M2")
+    "org.scala-lang.modules" %% "scala-swing" % "2.0.0-M2",
+    "com.typesafe.akka" %% "akka-remote" % "2.4.0")
 }
